@@ -1,0 +1,67 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+    background-color: bisque;
+}
+
+#optionA {
+    background-color: black;
+}
+
+#file {
+    margin-left: 5px;
+}
+
+.main-article{
+    background-color: salmon;
+}
+
+h1,h2,h3 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+label.optionB {
+    background-color: deepskyblue;
+}
+
+label {
+    background-color: lightgreen;
+}
+
+ul > li {
+    background-color: forestgreen;
+}
+
+/* visited link */
+a:visited {
+    color:hotpink;
+}
+
+/* unvisited link */
+a:link {
+    color:black;
+}
+
+/* mouse over link */
+a:hover {
+    color: red;
+}
+
+a:active {
+    color:yellow;
+}
+
+div:hover {
+    background-color: lawngreen;
+}
+
+/* Select all child elements except for last */
+ul > *:not(:last-child){
+    font-size: 10px;
+}
+
+p {
+    background-color: red !important;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- <!DOCTYPE> informs the browser which version of HTML (or XML) you used to write the document.
+In this case HTML5-->
+<html lang="en">
+    <!-- html is the root element, ancestor of all elements, and the parent of head and body -->
+    <head>
+        <meta charset="UTF-8">
+        <!-- By setting charset to "utf-8", we can use any other language,
+        otherwise we can only use the English language characters-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bootcamp 42</title>
+        <link rel="stylesheet" type="text/css" href="assets/stylesheets/main.css">
+    </head>
+    <body>
+        <header>
+            <h1>Hello World</h1>
+            <nav>
+                <a href="example.html">Welcome Page</a>
+                <a href="https://www.google.com/">Google</a>
+                <a href="">Hello</a>
+            </nav>
+            <hr/>
+        </header>
+        <section>
+            <article class="main-article">
+                <h2>Paragraph header</h2>
+                <img src="https://images.unsplash.com/photo-1591769225440-811ad7d6eab3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80" alt="Cool dog" style="width:20%; height:50%;">
+                <img src="./assets/images/just_hanging.jpeg" alt="Just hanging" style="width:200px; height:300px;">
+                <p>This is a paragraph</p>
+                <p>Another paragraph</p>
+                <div><em>We use the div tag a lot in Bootcamp</em></div>
+                <p><strong>I am strong!</strong></p>
+                <p><abbr>I am an abbreviation</abbr></p>
+                <span>I am span</span>
+                <audio controls> 
+                    <source src="path_to_sound_file.mp3" />
+                </audio>
+                <label for="file">File Progress:</label>
+                <progress id="file" value="70" max="100">70%</progress>
+            </article>
+        </section>
+        <section>
+            <aside>
+                <h1>I am an aside</h1>
+                <p><q>This is my quote</q></p>
+                <blockquote>This is a blockquote.This is a blockquote.This is a blockquote.This is a blockquote.This is a blockquote.This is a blockquote.This is a blockquote.vThis is a blockquote.vvThis is a blockquote.</blockquote>
+            </aside>
+        </section>
+        <section style="background-color: aqua;">
+            <h3>Tag Lookup</h3>
+            <p>This is the <code>Panel</code> constructor:</p>
+            <pre><code> function Panel(element, canClose, closeHandler){
+                this.element = element;
+                this.canClose = canClose;
+                this.closeHandler = function(){if (closeHandler) closeHandler()};
+                }
+            </code></pre>
+            <canvas width="320" height="240"></canvas>
+        </section>
+        <section>
+            <h3>My Unordered List</h3>
+            <ul>
+                <li>List item 1</li>
+                <li>List item 2</li>
+                <li>List item 3</li>
+                <li>List item 4</li>
+                <li>List item 5</li>
+            </ul>
+            <h3>My Ordered List</h3>
+            <ol>
+                <li>List item 1</li>
+                <li>List item 2</li>
+                <li>List item 3</li>
+                <li>List item 4</li>
+                <li>List item 5</li>
+            </ol>
+        </section>
+        <section>
+            <h3>Form Section</h3>
+            <form action="" method="">
+                <input type="text" name="username" placeholder="Username">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+
+                <p>Select any option to show that you're not a robot:</p>
+                <div>
+                    <input type="radio" id="optionA" name="drone" value="optionA">
+                    <label id="optionA" for="optionA">optionA</label>
+                </div>
+                <div>
+                    <input type="radio" id="optionB" name="drone" value="optionB">
+                    <label class="optionB" for="optionB">optionB</label>
+                </div>
+                <div>
+                    <input type="radio" id="optionC" name="drone" value="optionC">
+                    <label for="optionC">optionC</label>
+                </div>
+                <input type="submit" value="Submit">
+            </form>
+        </section>
+        <footer>
+            <hr/>
+            <small>Footer: Copyright of CodeCore</small>
+        </footer>
+    </body>
+</html>
+
