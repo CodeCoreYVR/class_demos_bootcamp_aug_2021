@@ -1,0 +1,58 @@
+* {
+    border: thin dotted pink;
+}
+
+.square {
+    height: 100px;
+    width: 100px;
+}
+
+.red {
+    background-color: red;
+}
+
+.border-black {
+    border: 2px solid black;
+}
+
+/* FLEXBOX */
+/* Any element with the property set to display:flex is considered a "Flex Container" */
+
+#flex-container {
+    height: 1000px;
+    display: flex;
+    /* Flex-direction is used to set the flow/main-axis of the flex-items */
+    /* By default flex-direction is set to row (left-right) */
+    /* flex-direction: column; */
+    flex-direction: column;
+    /* Justify-content is used to align item within the main axis */
+    justify-content: space-evenly;
+    /* Align-items is used to align item within the cross axis */
+    align-items: flex-end;
+}
+
+#square-1 {
+    order: 5;
+    flex-grow: 1;
+    align-self: center;
+}
+
+#square-2 {
+    order: 3;
+    flex-grow: 1;
+}
+
+#square-3 {
+    order: 4;
+    flex-grow: 1;
+}
+
+#square-4 {
+    order: 2;
+    flex-grow: 1;
+}
+
+#square-5 {
+    order: 1;
+    flex-grow: 1;
+}
