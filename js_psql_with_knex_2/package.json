@@ -1,0 +1,18 @@
+{
+  "name": "js_psql_with_knex_2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Steph",
+  "license": "ISC",
+  "dependencies": {
+    "knex": "^0.95.11",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "faker": "^5.5.3"
+  }
+}
