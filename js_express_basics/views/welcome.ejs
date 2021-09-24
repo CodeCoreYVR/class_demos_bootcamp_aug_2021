@@ -1,0 +1,12 @@
+<%- include("./partials/header.ejs") %>
+<h1> <%= title %> </h1>
+
+<% for(meme of memes) { %>
+    <div>
+        <img src='<%= meme %>' alt="" srcset="">
+    </div>
+<% } %>
+<%- include("./partials/footer.ejs") %>
+<%# # is for comments %>
+<%# = is for displaying %>
+<%# empty is for running JS %>
