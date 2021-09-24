@@ -4,13 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
   <title>Document</title>
 </head>
 <body>
-    <nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <ul>
         <li><a href="/">Welcome</a></li>
         <li><a href="/hello_world">Hello World</a></li>
         <li><a href="/survey">Survey</a></li>
       </ul>
+      <% if (username) { %>
+        <li>
+          <span>Hello, <%- username %>!</span>
+          <form action="/sign_out" method="POST">
+            <button type="submit" class='btn btn-outline-dark'>Sign Out</button>
+          </form>
+        </li>
+      <% } else { %>
+      <li>
+        <form action="/sign_in" method="POST" class='form-inline'>
+          <input class='form-control mr-2' name='username' placeholder='Username'>
+          <button type='submit' class='btn btn-outline-dark'>Sign In</button>
+        </form>
+      </li> 
+      <% } %>
     </nav>

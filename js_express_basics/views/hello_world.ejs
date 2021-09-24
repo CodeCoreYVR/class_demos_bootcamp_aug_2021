@@ -1,3 +1,11 @@
 <%- include("./partials/header.ejs") %>
 <h1>Hello World</h1>
+<%- "<h1><strong>Hello World Strong</strong></h1>" %>
+<%= "<h1><strong>Hello World Strong</strong></h1>" %>
 <%- include("./partials/footer.ejs") %>
+
+<!--This is a html comment ant won't comment out ejs tags-->
+<%# This is an ejs tag comment %>
+<%# Use - instead of = for ejs (unlike erb for ruby) because 
+it will include html while = won't %>
+
