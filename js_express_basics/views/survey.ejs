@@ -27,7 +27,7 @@
                 "Friday",
                 "Saturday"] %>
             <% for (let option of days) {%>
-                <input type="radio" name="favouriteDate" value="<%= option %>" id="<%= option %>">
+                <input type="radio" name="favouriteDay" value="<%= option %>" id="<%= option %>">
                 <label for="<%= option%>"><%= option%></label>
                 <br>
             <% } %>
@@ -35,3 +35,4 @@
         <input type="submit" value="Submit">
     </form>
     <%- include("./partials/footer.ejs") %>
+    

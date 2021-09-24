@@ -38,6 +38,8 @@ app.get('/', (request, response) => {
             "https://www.probytes.net/wp-content/uploads/2018/01/2.jpg",
             "https://www.probytes.net/wp-content/uploads/2018/01/20.png",
             "https://www.probytes.net/wp-content/uploads/2018/01/r_389776_tqMPa-1.jpg",
+            "https://www.loginradius.com/blog/async/static/ce430bf1882a235044353d4b4d098275/e85cb/12.png",
+            "https://res.cloudinary.com/practicaldev/image/fetch/s--MOKp0Jew--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://www.probytes.net/wp-content/uploads/2018/01/4-1.png"
         ]
     })
 })
@@ -55,7 +57,9 @@ app.get('/thank_you', (req, res) => {
     console.log(req.query);
     res.render('thank_you', {
         name: req.query.fullName,
-        message: req.query.message
+        message: req.query.message,
+        colour: req.query.favouriteColour,
+        day: req.query.favouriteDay
     })
 })
 
@@ -66,7 +70,7 @@ app.listen(PORT, DOMAIN, () => {
     console.log(`Server listening on http://${DOMAIN}:${PORT}`);
 })
 
-// Create an npm porject
+// Create an npm project
 // npm init -y 
 // Add git ignore
 // https://www.toptal.com/developers/gitignore copy the content to .gitignore
