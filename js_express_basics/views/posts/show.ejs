@@ -1,0 +1,19 @@
+<h1>Show Page</h1>
+
+<h3><%= post.title  %></h3>
+
+<p>
+    <%= post.content %> 
+</p>
+
+<img src='<%= post.imageUrl %> ' alt="" srcset="">
+
+<form action="/posts/<%= post.id%>" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete">
+</form>
+
+<br>
+<a href="/posts/<%= post.id%>/edit">
+    Edit
+</a>

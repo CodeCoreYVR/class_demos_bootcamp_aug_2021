@@ -4,7 +4,7 @@ const app = express();
 
 //-------------------STATIC ASSETS--------------------->
 const path = require('path')
-
+const methodOverride = require('method-override');
 //Use 'path.join' to combine string arguments into a path
 //path.join('/','users','bob'); -> '/users/bob'
 
@@ -44,6 +44,16 @@ app.use(cookieParser()); //will parse cookies and put them on request.cookies av
 //-------------------------Custom Middleware-------------------------------->
 //Remember, order matters! So make sure this is under the urlencoded and cookie-parser
 //because it will depend on it to work properly
+
+
+app.use(methodOverride((req, res) => {
+    if (req.body && req.body._method) {
+        const method = req.body._method;
+        // it changes the request to that method name
+        // then this request can reach the correct route
+        return method;
+    }
+}))
 
 app.use((req, res, next) => {
     const middleWareUsername = req.cookies.username
@@ -85,7 +95,7 @@ app.set('views', 'views');
 // app.use(): to initialize middleware
 // app.engine() to set the view engine of express
 // app.listen() to start the express server
-
+// CRUD
 // app.get() to listen for the GET requests
 // app.post() to listen for the POST requests
 // app.put() to listen for the PUT requests
@@ -167,7 +177,14 @@ app.get('/thank_you', (req, res) => {
         day: req.query.favouriteDay
     })
 })
+// import the routes from post.js
+const postRouter = require('./routes/posts');
 
+// use those routes by app.use function
+// if you put '/posts' for the first argument,
+// then in the posts.js file, all the routes there, you don't need to add /posts
+// app.use(postRouter);
+app.use('/posts', postRouter);
 //---------------------------SERVER----------------------------------------------->
 //--------------Start listening on our server------------------------------------->
 const PORT = 3000;

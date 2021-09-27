@@ -1,0 +1,17 @@
+<%- include("../partials/header.ejs") %> 
+<h1>Posts List</h1>
+<div class="cards">
+    <% for(let post of list) {%>
+        <div>
+            <h5>
+                <a href='/posts/<%= post.id%>'><%= post.title %></a>
+                
+            </h5>
+            <img src='<%= post.imageUrl%>' alt="">
+            <p>
+                <%= post.content%>
+            </p>
+        </div>
+    <% } %>
+</div>
+<%- include("../partials/footer.ejs") %> 
