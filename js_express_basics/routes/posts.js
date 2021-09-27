@@ -17,6 +17,7 @@ router.get("/", (req, res) => {
 });
 
 // get to the new page to create a post(blog)
+// always put get /new above get /:id
 router.get('/new', (req, res) => {
     res.render("posts/new");
 })
