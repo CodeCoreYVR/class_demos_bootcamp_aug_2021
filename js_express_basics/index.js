@@ -45,13 +45,13 @@ app.use(cookieParser()); //will parse cookies and put them on request.cookies av
 //Remember, order matters! So make sure this is under the urlencoded and cookie-parser
 //because it will depend on it to work properly
 
-app.use((req,res,next) => {
-    const middleWareUsername= req.cookies.username
+app.use((req, res, next) => {
+    const middleWareUsername = req.cookies.username
 
     //properties set on res.locals become accessible in any views
     //almost like a global variable
-    res.locals.username= "";
-    if(username){
+    res.locals.username = "";
+    if (middleWareUsername) {
         res.locals.username = middleWareUsername;
         console.log(`Signed in as ${username}`)
     }
@@ -112,7 +112,7 @@ app.get('/', (request, response) => {
     //add a cookie to our home page
     //convention is to expirre a cookie at max age
     const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24; //a day in milliseconds
-    response.cookie('hello', 'world', {maxAge: COOKIE_MAX_AGE})
+    response.cookie('hello', 'world', { maxAge: COOKIE_MAX_AGE })
     //key="hello",value="world"
     //once this cookie is set in the home page, it
     //will now be available on all the other pages/paths inside the domain
@@ -147,7 +147,7 @@ app.post('/sign_in', (req, res) => {
     // res.send(req.body)
     const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24; //a day in milliseconds
     const username = req.body.username;
-    res.cookie('username', username, {magAge: COOKIE_MAX_AGE})
+    res.cookie('username', username, { magAge: COOKIE_MAX_AGE })
     res.redirect('/')
 })
 
