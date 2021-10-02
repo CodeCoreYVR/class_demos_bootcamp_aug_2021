@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //*
 app.use(cookieParser()); //* 
 //above adds a property called 'cookies' to the req object
-app.use(express.static(path.join(__dirname, 'public'))); //*
+app.use(express.static(path.join(__dirname, 'public'))); //* for static assets like bootstrap
 
 //Custom middleware to create and store todo cookies:
 app.use((req,res, next) => {
