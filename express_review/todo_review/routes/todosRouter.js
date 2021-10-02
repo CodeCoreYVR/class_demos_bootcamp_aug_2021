@@ -36,8 +36,10 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
     //all the data fro the form is going to be stored inside req.body
     //it has to be a todo req
+    let username=req.cookies.username || 'anonymous';
     knex('todos')
     .insert({
+       username: username,
        title: req.body.title,
        content: req.body.content,
        imageUrl: req.body.imageUrl
