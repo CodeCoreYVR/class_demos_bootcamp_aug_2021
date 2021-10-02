@@ -22,15 +22,36 @@ app.use(express.json());
 //When "extended" is set to "true", it allows forms to POST data
 //as arrays and objects. If set to false, it will only accept strings
 app.use(express.urlencoded({ extended: true })); //*
+
+const methodOverride = require('method-override');
+//Most functionality default to a GET http request
+//Some default or can be overridden to a POST req
+//For the rest we need middleware like method-override to enable
+//requests like PATCH, DELETE, PUT, etc
+// docs: https://www.npmjs.com/package/method-override#custom-logic
+
+app.use(methodOverride((req, res) => {
+  if (req.body && req.body._method){
+    const method = req.body._method;
+      // This modifies the request object
+      // it changes it from a POST request
+      // to be whatever the value for _method was
+      // within the form that was just submitted
+      // it changes the request to that method name
+      // then this request can reach the correct route
+    return method;
+  }
+}))
+
 app.use(cookieParser()); //* 
 //above adds a property called 'cookies' to the req object
 app.use(express.static(path.join(__dirname, 'public'))); //* for static assets like bootstrap
 
 //Custom middleware to create and store cookies:
 app.use((req,res, next) => {
-  const todos = req.cookies.todos || [];
+  // const todos = req.cookies.todos || [];
   const username = req.cookies.username || '';
-  res.locals.todos = todos;
+  // res.locals.todos = todos;
   //properties set on res.locals become accessible in any views
   //almost like a global variable
   res.locals.username = username;
@@ -44,27 +65,29 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
-app.get('/newTodo', (req, res) => {
-  res.render('newTodo')
-})
+// app.get('/newTodo', (req, res) => {
+//   res.render('newTodo')
+// })
 
-app.post('/todos', (req, res) => {
-  const todo = req.body
-  //const title = req.body.title;
-  //const content = req.body.content;
-  // const todo = {
-  //   title: title,
-  //   conent: conent
-  // }
+// app.post('/todos', (req, res) => {
+//   const todo = req.body
+//   //const title = req.body.title;
+//   //const content = req.body.content;
+//   // const todo = {
+//   //   title: title,
+//   //   conent: conent
+//   // }
 
-  const todos = req.cookies.todos || [];
-  res.cookie('todos', [todo].concat(todos));
-  res.redirect('todos');
-})
+//   const todos = req.cookies.todos || [];
+//   res.cookie('todos', [todo].concat(todos));
+//   res.redirect('todos');
+// })
 
-app.get('/todos', (req,res) => {
-  res.render('todos');
-})
+// app.get('/todos', (req,res) => {
+//   res.render('todos');
+// })
+const todosRouter = require("./routes/todosRouter");
+app.use("/todos", todosRouter)
 
 app.post('/login', (req, res) => {
   const username = req.body.username;
