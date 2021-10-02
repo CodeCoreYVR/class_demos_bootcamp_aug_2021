@@ -26,10 +26,14 @@ app.use(cookieParser()); //*
 //above adds a property called 'cookies' to the req object
 app.use(express.static(path.join(__dirname, 'public'))); //* for static assets like bootstrap
 
-//Custom middleware to create and store todo cookies:
+//Custom middleware to create and store cookies:
 app.use((req,res, next) => {
   const todos = req.cookies.todos || [];
+  const username = req.cookies.username || '';
   res.locals.todos = todos;
+  //properties set on res.locals become accessible in any views
+  //almost like a global variable
+  res.locals.username = username;
   next();
 })
 
@@ -61,6 +65,17 @@ app.post('/todos', (req, res) => {
 app.get('/todos', (req,res) => {
   res.render('todos');
 })
+
+app.post('/login', (req, res) => {
+  const username = req.body.username;
+  res.cookie('username', username);
+  res.redirect('/');
+});
+
+app.post('/logout', (req, res) => {
+  res.clearCookie('username');
+  res.redirect('/');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
