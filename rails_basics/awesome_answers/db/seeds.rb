@@ -8,7 +8,7 @@
 
 Question.destroy_all
 
-200.times do
+20.times do
     created_at = Faker::Date.backward(days:365 * 5)
 
     Question.create(
