@@ -2,6 +2,8 @@ class QuestionsController < ApplicationController
     # rails g controller questions --no-helper --no-assets
     # if you don't need helper.rb and questions.scss files
     # you can add those options when you run rails g controller
+
+    # this method find_question gonna be called before the requests get to the (edit, update, show, destroy) actions
     before_action :find_question, only: [:edit, :update, :show, :destroy]
 
     def index

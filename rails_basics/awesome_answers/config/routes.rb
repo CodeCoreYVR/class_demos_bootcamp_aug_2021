@@ -4,11 +4,29 @@ Rails.application.routes.draw do
   # when people typed "localhost:3000" 
   # it's sending a http get request to this path "localhost:3000"
   # it will be handled by "WelcomeController" the "index" action
-  get('/',{to:'welcome#index'})
+  # as: 'root'
+  # This defines a route rule that says when we receive
+  # a GET request with the URL '/', handle it with the
+  # WelcomeController with the index action inside that
+  # controller.
+  get('/', {to: 'welcome#index', as: 'root'})
   get('/goodbye',{to:'welcome#goodbye', as: :goodbye})
   get('/form_example',{to:'welcome#form_example'})
 
   # RESTful routes
+  #A RESTful route provides mapping from HTTP verbs (like GET, POST, PATCH, PUT, DELETE)
+  #to the contoller CRUD actions (create, read, update, destroy).
+  #It depends on the HTTP verb and the URL, and not just solely on the URL
+
+  #RESTful Routes for Questions resource
+  #1 index: GET "/resources" - return all records of that resource
+  #2 show: GET "/resources/:id" - returns one instance of the resource
+  #3 new: GET "/resources/new" - return a view page with form to create a resource
+  #4 create: POST "/resources" - handle the submission to the "new form" and inserts a new resource in the db
+  #5 edit: GET "/resources/:id/edit" - returns a view form to edit an existing resource
+  #6 update: PATCH "/resources/:id" - handle submission of the "edit form" and update the resource with specific id in the db
+  #7 destroy: DELETE "/resources/:id" - delete a record with specific id from the database
+  
   # get('/questions', {to: 'questions#index', as: :questions})
   # get('/questions/new',{to: 'questions#new'})
   # # The :as option creates a named path.
