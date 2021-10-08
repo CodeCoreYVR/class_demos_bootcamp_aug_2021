@@ -41,6 +41,12 @@ Rails.application.routes.draw do
 
   # patch('/questions/:id',{to: 'questions#update'})
 
-  resources :questions
+  resources :questions do
+    # Routes written inside of a block passed a resource method will be prefixed by
+    # a path corresponding to the passed in symbol
+    # in this case, all nested routes will be pre-fixed with '/questions/:question_id'
+    resources :answers, only:[:create, :destroy]
+    # resources :answers, except: [:show, :new, :index, :edit, :update]
+  end
 
 end

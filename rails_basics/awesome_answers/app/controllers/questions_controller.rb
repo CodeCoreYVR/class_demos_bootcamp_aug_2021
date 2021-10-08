@@ -15,7 +15,8 @@ class QuestionsController < ApplicationController
     end
 
     def show
-        
+        @answers = @question.answers.order(created_at: :desc)
+        @answer = Answer.new
     end
     
     def destroy
