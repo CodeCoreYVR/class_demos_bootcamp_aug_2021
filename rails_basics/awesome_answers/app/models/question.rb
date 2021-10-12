@@ -4,7 +4,7 @@ class Question < ApplicationRecord
 
     has_many :answers, dependent: :destroy
     # when you delete a question, the answers belongs to this question can also be deleted automatically by rails.
-
+    belongs_to :user
     validates :title, presence: {message: "must be provided"}, uniqueness: {scope: :body}, length: { minimum: 2, maximum: 200 }
 
     #unique to the scope of body means title doesn't need to be unique 

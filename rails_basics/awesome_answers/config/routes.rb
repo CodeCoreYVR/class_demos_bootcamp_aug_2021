@@ -49,4 +49,11 @@ Rails.application.routes.draw do
     # resources :answers, except: [:show, :new, :index, :edit, :update]
   end
 
+  resources :users, only:[:new, :create]
+
+  resource :session, only: [:new, :create, :destroy]
+  # `resource` is singular instead of `resources`
+  # Unlike `resources`, `resource` will create routes that do CRUD opreation
+  # on only one thing. Also there will be no index reoutes, and no route will
+  # have an `:id` wildcard. but the controller name is still plural
 end

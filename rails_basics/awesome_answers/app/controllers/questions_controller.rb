@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
 
     # this method find_question gonna be called before the requests get to the (edit, update, show, destroy) actions
     before_action :find_question, only: [:edit, :update, :show, :destroy]
-
+    before_action :authenticate_user!, except: [:index, :show]
     def index
         @questions = Question.all.order(created_at: :desc)
         # Model.all is a method built into actice record used to return
@@ -35,6 +35,7 @@ class QuestionsController < ApplicationController
         # `permit` to specify all input names are  allowed to submit to the DB
         # @question = Question.new(params.require(:question).permit(:title,:body))
         @question = Question.new(question_params)
+        @question.user = current_user
         if @question.save
             flash[:notice] = "Question created successfully!"
             redirect_to question_path(@question.id)

@@ -1,0 +1,14 @@
+class CreateUsers < ActiveRecord::Migration[6.1]
+  def change
+    create_table :users do |t|
+      t.string :first_name
+      t.string :last_name
+      t.string :email, index:{unique: true}
+      # this will add index to column email when you do query, it will speed up the query
+      
+      t.string :password_digest
+
+      t.timestamps
+    end
+  end
+end

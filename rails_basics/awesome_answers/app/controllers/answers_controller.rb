@@ -1,9 +1,11 @@
 class AnswersController < ApplicationController
     before_action :find_question 
+    before_action :authenticate_user! 
     # destroy create
     def create
         @answer  = Answer.new(answer_params)
         @answer.question = @question
+        @answer.user = current_user
         # if saved successfuly then redirect to the show page of the question
         # otherwise still go to this show page but using render 
         # the difference between redirect and render
