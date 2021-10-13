@@ -4,6 +4,6 @@ class User < ApplicationRecord
     # it will add a presence validation ro the password field
     # it will add two attribute accessors for `passowrd` and `password_confirmation`
     
-    has_many :answers, dependent: :nullify
-    has_many :questions, dependent: :nullify
+    has_many :answers, dependent: :destroy
+    has_many :questions, dependent: :destroy
 end

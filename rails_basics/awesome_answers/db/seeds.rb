@@ -7,8 +7,32 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 # delete
 # destroy
+User.destroy_all
 Answer.destroy_all
 Question.destroy_all
+
+PASSWORD = '123'
+
+super_user = User.create(
+    first_name: "Admin",
+    last_name: "User",
+    email: "admin@user.com",
+    password: PASSWORD,
+    is_admin: true
+)
+
+5.times do 
+    first_name = Faker::Name.first_name
+    last_name = Faker::Name.last_name
+    User.create(
+        first_name:first_name,
+        last_name: last_name,
+        email: "#{first_name}@#{last_name}.com",
+        password: PASSWORD
+    )
+end
+
+users = User.all
 
 20.times do
     created_at = Faker::Date.backward(days:365 * 5)
@@ -18,11 +42,12 @@ Question.destroy_all
        body: Faker::ChuckNorris.fact,
        view_count: rand(100_000),
        created_at: created_at,
-       updated_at: created_at
+       updated_at: created_at,
+       user: users.sample
     )
     if q.valid?
         rand(1..5).times do
-            Answer.create(body:Faker::Hacker.say_something_smart, question:q)
+            Answer.create(body:Faker::Hacker.say_something_smart, question:q, user: users.sample)
         end
     end
 end
@@ -32,3 +57,4 @@ answers = Answer.all
 
 puts Cowsay.say("Generated #{questions.count} questions", :frogs)
 puts Cowsay.say("Generated #{answers.count} answers", :cow)
+puts Cowsay.say("Generated #{users.count} users", :koala)

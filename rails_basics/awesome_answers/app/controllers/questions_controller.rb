@@ -6,6 +6,7 @@ class QuestionsController < ApplicationController
     # this method find_question gonna be called before the requests get to the (edit, update, show, destroy) actions
     before_action :find_question, only: [:edit, :update, :show, :destroy]
     before_action :authenticate_user!, except: [:index, :show]
+    before_action :authorize_user!, only: [:update, :destroy]
     def index
         @questions = Question.all.order(created_at: :desc)
         # Model.all is a method built into actice record used to return
@@ -68,5 +69,10 @@ class QuestionsController < ApplicationController
     def question_params
         params.require(:question).permit(:title,:body)
     end
+
+    def authorize_user!
+        redirect_to root_path, alert: "Not Authorized!" unless can?(:crud, @question)
+    end
+    
     
 end

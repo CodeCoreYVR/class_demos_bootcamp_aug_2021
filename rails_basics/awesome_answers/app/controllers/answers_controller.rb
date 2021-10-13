@@ -1,6 +1,8 @@
 class AnswersController < ApplicationController
     before_action :find_question 
-    before_action :authenticate_user! 
+    # before_action :find_answer, only: [:destroy]
+    before_action :authenticate_user!
+    # before_action :authorize_user!, only: [:destroy]
     # destroy create
     def create
         @answer  = Answer.new(answer_params)
@@ -25,8 +27,13 @@ class AnswersController < ApplicationController
     
     def destroy
         @answer = Answer.find params[:id]
-        @answer.destroy
-        redirect_to question_path(@question), notice: 'Answer Deleted'
+        if can?(:crud, @answer)
+            @answer.destroy
+            redirect_to question_path(@question), notice: 'Answer Deleted'
+        else
+            redirect_to root_path, alert: 'Not Authorized'
+        end
+        
     end
     
 
@@ -36,9 +43,18 @@ class AnswersController < ApplicationController
         @question = Question.find params[:question_id]
     end
     
+    def find_answer
+        @answer = Answer.find params[:id]
+    end
+    
 
     def answer_params
         params.require(:answer).permit(:body)
     end
+
+    # def authorize_user!
+    #     redirect_to root_path, alert: 'Not Authorized' unless can?(:crud, @answer)
+    # end
+    
     
 end
