@@ -113,5 +113,35 @@ RSpec.describe JobPostsController, type: :controller do
         
     end
     
+    describe "#show" do
+        it "should render show template" do
+            # GIVEN
+            job_post = JobPost.create(
+                title: 'some title',
+                description: 'some description'*20,
+                location: 'some location',
+                min_salary: 40_000,
+                max_salary: 100_000,
+                company_name: "something")
+            # WHEN
+            get(:show, params:{id: job_post.id})
+            # THEN
+            expect(response).to(render_template(:show)) 
+        end
+        
+        it "should set an instance variable @job_post for the show template" do
+            job_post = JobPost.create(
+                title: 'some title',
+                description: 'some description'*20,
+                location: 'some location',
+                min_salary: 40_000,
+                max_salary: 100_000,
+                company_name: "something")
+            get(:show, params: {id: job_post.id})
+            expect(assigns(:job_post)).to(eq(job_post))  
+        end
+        
+    end
+    
     
 end
