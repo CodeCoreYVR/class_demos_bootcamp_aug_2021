@@ -143,5 +143,42 @@ RSpec.describe JobPostsController, type: :controller do
         
     end
     
+    describe "#index" do
+        it "should render the index template" do
+            get(:index)
+            expect(response).to(render_template(:index)) 
+        end
+        it "should assign an instance variable @job_posts which contains all the created job posts" do
+            # GIVEN
+            job_post_1 = JobPost.create(
+                title: 'some title1',
+                description: 'some description'*20,
+                location: 'some location',
+                min_salary: 40_000,
+                max_salary: 100_000,
+                company_name: "something")
+            job_post_2 = JobPost.create(
+                title: 'some title2',
+                description: 'some description'*20,
+                location: 'some location',
+                min_salary: 40_000,
+                max_salary: 100_000,
+                company_name: "something")
+            job_post_3 = JobPost.create(
+                title: 'some title3',
+                description: 'some description'*20,
+                location: 'some location',
+                min_salary: 40_000,
+                max_salary: 100_000,
+                company_name: "something")
+            
+            # WHEN
+            get(:index)
+
+            # THEN
+            expect(assigns(:job_posts)).to(eq([job_post_3,job_post_2,job_post_1]))  
+        end
+        
+    end
     
 end
