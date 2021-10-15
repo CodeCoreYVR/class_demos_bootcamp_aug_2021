@@ -56,4 +56,6 @@ Rails.application.routes.draw do
   # Unlike `resources`, `resource` will create routes that do CRUD opreation
   # on only one thing. Also there will be no index reoutes, and no route will
   # have an `:id` wildcard. but the controller name is still plural
+
+  resources :job_posts, only: [:new]
 end
