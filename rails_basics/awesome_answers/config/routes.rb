@@ -57,5 +57,5 @@ Rails.application.routes.draw do
   # on only one thing. Also there will be no index reoutes, and no route will
   # have an `:id` wildcard. but the controller name is still plural
 
-  resources :job_posts, only: [:new, :create, :show, :index, :destroy]
+  resources :job_posts, only: [:new, :create, :show, :index, :destroy, :edit, :update]
 end

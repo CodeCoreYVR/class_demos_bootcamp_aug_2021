@@ -231,4 +231,76 @@ RSpec.describe JobPostsController, type: :controller do
         
     end
     
+    describe "#edit" do
+        it "should render the edit template" do
+            # GIVEN
+            job_post = JobPost.create(
+                title: 'some title1',
+                description: 'some description'*20,
+                location: 'some location',
+                min_salary: 40_000,
+                max_salary: 100_000,
+                company_name: "something")
+            # WHEN
+            get(:edit, params:{id: job_post.id})
+            # THEN
+            expect(response).to(render_template(:edit)) 
+        end
+        
+    end
+    
+    describe "#update" do
+        before do
+            @job_post = JobPost.create(
+                title: 'some title1',
+                description: 'some description'*20,
+                location: 'some location',
+                min_salary: 40_000,
+                max_salary: 100_000,
+                company_name: "something")
+        end
+
+        context "with valid parameters" do
+
+
+            it "should update the job post record with new atrributes" do
+                # GIVEN
+                
+                new_title = "#{@job_post.title} plus something"
+
+                # WHEN
+                patch(:update, params:{id: @job_post.id, job_post:{title:new_title} })
+                
+                # THEN
+                # expect(JobPost.find_by(id: job_post.id).title).to(eq(new_title))
+                expect(@job_post.reload.title).to(eq(new_title))
+            end
+            
+            it "should redirect to the show page" do
+
+                new_title = "#{@job_post.title} plus something"
+
+                # WHEN
+                patch(:update, params:{id: @job_post.id, job_post:{title:new_title} })
+                
+                # THEN
+                expect(response).to(redirect_to(@job_post)) 
+            end
+            
+        end
+
+        context "with invalid parameters" do
+            it "should not update the job post record" do
+                
+                # when
+                patch(:update, params:{id:@job_post.id, job_post:{title:nil}})
+                
+                # then
+                expect(JobPost.find_by(id: @job_post.id).title).to(eq(@job_post.title)) 
+            end
+            
+        end
+        
+    end
+    
 end
