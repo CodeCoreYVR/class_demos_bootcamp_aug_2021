@@ -181,4 +181,54 @@ RSpec.describe JobPostsController, type: :controller do
         
     end
     
+    describe "#destroy" do
+        it "should remove a job post from the database" do
+            # GIVEN
+            job_post = JobPost.create(
+                title: 'some title1',
+                description: 'some description'*20,
+                location: 'some location',
+                min_salary: 40_000,
+                max_salary: 100_000,
+                company_name: "something")
+            # WHEN
+            delete(:destroy, params:{ id:job_post.id})
+
+            # THEN
+            expect(JobPost.find_by(id: job_post.id)).to(be(nil)) 
+        end
+
+        it "should redirect to the job post index" do
+            # GIVEN
+            job_post = JobPost.create(
+                title: 'some title1',
+                description: 'some description'*20,
+                location: 'some location',
+                min_salary: 40_000,
+                max_salary: 100_000,
+                company_name: "something")
+            # WHEN
+            delete(:destroy, params:{ id:job_post.id})
+
+            # THEN
+            expect(response).to(redirect_to(job_posts_path)) 
+        end
+        
+        it "should set a flash message" do
+            # GIVEN
+            job_post = JobPost.create(
+                title: 'some title1',
+                description: 'some description'*20,
+                location: 'some location',
+                min_salary: 40_000,
+                max_salary: 100_000,
+                company_name: "something")
+            # WHEN
+            delete(:destroy, params:{ id:job_post.id})
+
+            expect(flash[:danger]).to be
+        end
+        
+    end
+    
 end
