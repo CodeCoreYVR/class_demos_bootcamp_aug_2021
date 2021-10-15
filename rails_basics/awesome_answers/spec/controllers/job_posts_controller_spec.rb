@@ -35,42 +35,81 @@ RSpec.describe JobPostsController, type: :controller do
     end
 
     describe "#create" do
-        def valid_request
-            post(:create, params:{ job_post: {
-                title: 'some title',
-                description: 'some description'*20,
-                location: 'some location',
-                min_salary: 40_000,
-                max_salary: 100_000,
-                company_name: "something"
-            }})
+        # context is functionally the same as dscribe, but we use it to
+        # organize groups of branching code paths.
+        context "with valid parameters" do
+            def valid_request
+                post(:create, params:{ job_post: {
+                    title: 'some title',
+                    description: 'some description'*20,
+                    location: 'some location',
+                    min_salary: 40_000,
+                    max_salary: 100_000,
+                    company_name: "something"
+                }})
+            end
+    
+            it "should create a job post in the datavase" do
+                # GIVEN
+                count_before = JobPost.count # the number of all the records in the JobPost table
+    
+                # WHEN
+                # post(:create, params: {job_post: FactoryBot.attributes_for(:job_post)})
+                valid_request
+    
+                # THEN
+                count_after = JobPost.count
+                expect(count_after).to(eq(count_before + 1))
+                # eq is an assertion provided by RSpec that checks that value to the right of the .to is equal to the paramter passed into the method
+            end
+            
+            it "should redirect us to the show page for that post" do
+                # GIVE
+    
+                # WHEN
+                valid_request
+    
+                # THEN
+                job_post = JobPost.last
+                expect(response).to(redirect_to(job_post_path(job_post.id)))
+            end
         end
         
+        context "with invalid parameters" do
+            def invalid_params
+                post(:create, params:{ job_post: {
+                    title: 'some title',
+                    description: 'some description',
+                    location: 'some location',
+                    min_salary: 40_000,
+                    max_salary: 100_000,
+                    company_name: "something"
+                }})
+            end
+            
 
-        it "should create a job post in the datavase" do
-            # GIVEN
-            count_before = JobPost.count # the number of all the records in the JobPost table
+            it "should not save a record into the database" do
+                # GIVEN
+                count_before = JobPost.count
 
-            # WHEN
-            # post(:create, params: {job_post: FactoryBot.attributes_for(:job_post)})
-            valid_request
+                # WHEN
+                invalid_params
 
-            # THEN
-            count_after = JobPost.count
-            expect(count_after).to(eq(count_before + 1))
-            # eq is an assertion provided by RSpec that checks that value to the right of the .to is equal to the paramter passed into the method
+                # THEN
+                count_after = JobPost.count
+                expect(count_after).to(eq(count_before)) 
+            end
+
+            it "should render the new template" do
+                # WHEN
+                invalid_params
+
+                expect(response).to(render_template(:new)) 
+            end
+            
         end
         
-        it "should redirect us to the show page for that post" do
-            # GIVE
-
-            # WHEN
-            valid_request
-
-            # THEN
-            job_post = JobPost.last
-            expect(response).to(redirect_to(job_post_path(job_post.id)))
-        end
+        
         
     end
     
