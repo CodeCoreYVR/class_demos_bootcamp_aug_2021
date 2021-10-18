@@ -39,14 +39,7 @@ RSpec.describe JobPostsController, type: :controller do
         # organize groups of branching code paths.
         context "with valid parameters" do
             def valid_request
-                post(:create, params:{ job_post: {
-                    title: 'some title',
-                    description: 'some description'*20,
-                    location: 'some location',
-                    min_salary: 40_000,
-                    max_salary: 100_000,
-                    company_name: "something"
-                }})
+                post(:create, params:{ job_post: FactoryBot.attributes_for(:job_post)})
             end
     
             it "should create a job post in the datavase" do
@@ -77,14 +70,7 @@ RSpec.describe JobPostsController, type: :controller do
         
         context "with invalid parameters" do
             def invalid_params
-                post(:create, params:{ job_post: {
-                    title: 'some title',
-                    description: 'some description',
-                    location: 'some location',
-                    min_salary: 40_000,
-                    max_salary: 100_000,
-                    company_name: "something"
-                }})
+                post(:create, params:{ job_post: FactoryBot.attributes_for(:job_post, title: nil)})
             end
             
 
@@ -114,31 +100,31 @@ RSpec.describe JobPostsController, type: :controller do
     end
     
     describe "#show" do
+        before do
+            @job_post = FactoryBot.create(:job_post)
+            get(:show, params:{id: @job_post.id})
+        end
+        
+
         it "should render show template" do
             # GIVEN
-            job_post = JobPost.create(
-                title: 'some title',
-                description: 'some description'*20,
-                location: 'some location',
-                min_salary: 40_000,
-                max_salary: 100_000,
-                company_name: "something")
+            # job_post = JobPost.create(
+            #     title: 'some title',
+            #     description: 'some description'*20,
+            #     location: 'some location',
+            #     min_salary: 40_000,
+            #     max_salary: 100_000,
+            #     company_name: "something")
             # WHEN
-            get(:show, params:{id: job_post.id})
+            
             # THEN
             expect(response).to(render_template(:show)) 
         end
         
         it "should set an instance variable @job_post for the show template" do
-            job_post = JobPost.create(
-                title: 'some title',
-                description: 'some description'*20,
-                location: 'some location',
-                min_salary: 40_000,
-                max_salary: 100_000,
-                company_name: "something")
-            get(:show, params: {id: job_post.id})
-            expect(assigns(:job_post)).to(eq(job_post))  
+            # job_post = FactoryBot.create(:job_post)
+            # get(:show, params: {id: job_post.id})
+            expect(assigns(:job_post)).to(eq(@job_post))  
         end
         
     end
@@ -150,27 +136,9 @@ RSpec.describe JobPostsController, type: :controller do
         end
         it "should assign an instance variable @job_posts which contains all the created job posts" do
             # GIVEN
-            job_post_1 = JobPost.create(
-                title: 'some title1',
-                description: 'some description'*20,
-                location: 'some location',
-                min_salary: 40_000,
-                max_salary: 100_000,
-                company_name: "something")
-            job_post_2 = JobPost.create(
-                title: 'some title2',
-                description: 'some description'*20,
-                location: 'some location',
-                min_salary: 40_000,
-                max_salary: 100_000,
-                company_name: "something")
-            job_post_3 = JobPost.create(
-                title: 'some title3',
-                description: 'some description'*20,
-                location: 'some location',
-                min_salary: 40_000,
-                max_salary: 100_000,
-                company_name: "something")
+            job_post_1 = FactoryBot.create(:job_post)
+            job_post_2 = FactoryBot.create(:job_post)
+            job_post_3 = FactoryBot.create(:job_post)
             
             # WHEN
             get(:index)
@@ -182,49 +150,35 @@ RSpec.describe JobPostsController, type: :controller do
     end
     
     describe "#destroy" do
-        it "should remove a job post from the database" do
+        before do
             # GIVEN
-            job_post = JobPost.create(
-                title: 'some title1',
-                description: 'some description'*20,
-                location: 'some location',
-                min_salary: 40_000,
-                max_salary: 100_000,
-                company_name: "something")
+            @job_post = FactoryBot.create(:job_post)
             # WHEN
-            delete(:destroy, params:{ id:job_post.id})
+            delete(:destroy, params:{ id:@job_post.id})
+        end
+        
+        it "should remove a job post from the database" do
+            
 
             # THEN
-            expect(JobPost.find_by(id: job_post.id)).to(be(nil)) 
+            expect(JobPost.find_by(id: @job_post.id)).to(be(nil)) 
         end
 
         it "should redirect to the job post index" do
-            # GIVEN
-            job_post = JobPost.create(
-                title: 'some title1',
-                description: 'some description'*20,
-                location: 'some location',
-                min_salary: 40_000,
-                max_salary: 100_000,
-                company_name: "something")
-            # WHEN
-            delete(:destroy, params:{ id:job_post.id})
+            # # GIVEN
+            # job_post = FactoryBot.create(:job_post)
+            # # WHEN
+            # delete(:destroy, params:{ id:job_post.id})
 
             # THEN
             expect(response).to(redirect_to(job_posts_path)) 
         end
         
         it "should set a flash message" do
-            # GIVEN
-            job_post = JobPost.create(
-                title: 'some title1',
-                description: 'some description'*20,
-                location: 'some location',
-                min_salary: 40_000,
-                max_salary: 100_000,
-                company_name: "something")
-            # WHEN
-            delete(:destroy, params:{ id:job_post.id})
+            # # GIVEN
+            # job_post = FactoryBot.create(:job_post)
+            # # WHEN
+            # delete(:destroy, params:{ id:job_post.id})
 
             expect(flash[:danger]).to be
         end
@@ -234,13 +188,7 @@ RSpec.describe JobPostsController, type: :controller do
     describe "#edit" do
         it "should render the edit template" do
             # GIVEN
-            job_post = JobPost.create(
-                title: 'some title1',
-                description: 'some description'*20,
-                location: 'some location',
-                min_salary: 40_000,
-                max_salary: 100_000,
-                company_name: "something")
+            job_post = FactoryBot.create(:job_post)
             # WHEN
             get(:edit, params:{id: job_post.id})
             # THEN
@@ -251,13 +199,7 @@ RSpec.describe JobPostsController, type: :controller do
     
     describe "#update" do
         before do
-            @job_post = JobPost.create(
-                title: 'some title1',
-                description: 'some description'*20,
-                location: 'some location',
-                min_salary: 40_000,
-                max_salary: 100_000,
-                company_name: "something")
+            @job_post = FactoryBot.create(:job_post)
         end
 
         context "with valid parameters" do
