@@ -18,6 +18,36 @@ class Question < ApplicationRecord
     # for regular validations.
     validate :no_monkey
 
+    # has_and_belongs_to_many(
+    #     :likes,
+    #     {
+    #         class_name:'User',
+    #         join_table: 'likes',
+    #         association_foreign_key: 'user_id',
+    #         foreign_key: 'question_id'
+    #     }
+    # )
+    # :class_name => the model that the association points to
+    # :join_table => the join table used to create this association
+    # :foreign_key => on the join table, which foreign key points to this current model
+    # : association_foreign_key => on the join table, which foreign key points the associated table
+    
+    
+    has_many :likes, dependent: :destroy
+    # The `has_many :likers` below depends on the existence of `has_many :likes` above.
+    # If the above doesn't exist, or the one above comes after, you will get an error.
+    has_many :likers, through: :likes, source: :user
+    # The has_may can take an argument `through` => `:likes` is the name of 
+    # another has_association => `has_many :likes`
+    # We specify the name of another `has_many` with the `through` option which
+    # corresponds to the join table between the two tables that share the many-to-many relationship
+    # We must also provide a `source` named argument to specify which model
+    # we are getting back from the many-to-many relatioship.
+    
+    
+
+
+
     def no_monkey
         # &. is the safe navigation operator. It's used like . operator
         # to call methods of the object

@@ -47,6 +47,17 @@ Rails.application.routes.draw do
     # in this case, all nested routes will be pre-fixed with '/questions/:question_id'
     resources :answers, only:[:create, :destroy]
     # resources :answers, except: [:show, :new, :index, :edit, :update]
+    
+    resources :likes, shallow: true, only:[:create, :destroy]
+    # The `shallow: true` named argument will separate routes taht require the parent
+    # from thos that don't. Routes that require the parent won't be changed (i.e. index, new, create)
+    # Rouhtes that don't require the parent (i.e. show, edit, update, destroy) will have the parent 
+    # prefix (/questions/:question_id) removed
+    # for destroy => /questions/1/likes/5 => /likes/5
+
+
+    get :liked, on: :collection
+    # GET "/questions/liked" 
   end
 
   resources :users, only:[:new, :create]
