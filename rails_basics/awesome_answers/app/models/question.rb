@@ -67,6 +67,31 @@ class Question < ApplicationRecord
         end
     end
 
+    #-----------ADD CUSTOM TAG METHODS TO GET OR SET TAGS WITH SELECTIZE------>
+
+    #Getter
+    def tag_names
+        self.tags.map(&:name).join(", ")
+        #The & symbol is used to tell Ruby that the following argument
+        #should be given as a block to the method. So the line:
+        #self.tags.map(&.:name).join(", ") is equal to
+        #self.tags.map { |t| t.name.join(", ")}
+        #So the above will iterate over tyhe collection of elf.tags
+        #and build an array with the resukts of the name method
+        #called on every item
+    end
+
+    #Setter
+    #This is similar to implementing an attribute writer "attr_writer"
+    #Appending = at the end of a method name allows us to implement a setter
+    #A setter is a method that is assignable, example:
+    # q.tag_names = 'another new tag name'
+    def tag_names=(rhs)
+        self.tags = rhs.strip.split(/\s*,\s*/).map do |tag_name|
+            Tag.find_or_initialize_by(name: tag_name)
+        end
+    end
+
     private
 
     def set_defaults

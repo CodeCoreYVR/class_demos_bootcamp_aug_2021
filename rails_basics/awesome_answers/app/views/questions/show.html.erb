@@ -9,7 +9,15 @@
 <p>
 <%= @question.body%>
 </p>
-<p><strong>Tags:</strong><%= @question.tags.map(&:name).join(", ") %></p>
+<% unless @question.tags.empty? %>
+    <p> Tags:
+        <% @question.tags.each do |tag| %>
+        <%= link_to(
+            tag.name, '/'
+        )%>
+        <% end %>
+    </p>
+<% end %>
 <p>
 <%= time_ago_in_words(@question.created_at) %> ago
 </p>
