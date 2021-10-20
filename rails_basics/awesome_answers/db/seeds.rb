@@ -7,9 +7,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 # delete
 # destroy
+Like.destroy_all
+Tagging.destroy_all
+Tag.destroy_all
 User.destroy_all
 Answer.destroy_all
 Question.destroy_all
+JobPost.destroy_all
 
 PASSWORD = '123'
 
@@ -34,6 +38,15 @@ end
 
 users = User.all
 
+NUM_TAGS = 20
+NUM_TAGS.times do
+    Tag.create(
+        name: Faker::Vehicle.make
+    )
+end
+
+tags = Tag.all
+
 20.times do
     created_at = Faker::Date.backward(days:365 * 5)
 
@@ -45,10 +58,12 @@ users = User.all
        updated_at: created_at,
        user: users.sample
     )
-    if q.valid?
+    if q.valid? #youi can also use q.persisted?
         rand(1..5).times do
             Answer.create(body:Faker::Hacker.say_something_smart, question:q, user: users.sample)
         end
+        q.likers = users.shuffle.slice(0, rand(users.count))
+        q.tags = tags.shuffle.slice(0, rand(tags.count))
     end
 end
 
@@ -58,3 +73,6 @@ answers = Answer.all
 puts Cowsay.say("Generated #{questions.count} questions", :frogs)
 puts Cowsay.say("Generated #{answers.count} answers", :cow)
 puts Cowsay.say("Generated #{users.count} users", :koala)
+puts Cowsay.say("Login with #{super_user.email} and password: #{PASSWORD}", :koala)
+puts Cowsay.say("Generated #{Like.count} likes", :dragon)
+puts Cowsay.say("Generated #{Tag.count} tags", :bunny)
