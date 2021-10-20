@@ -9,6 +9,7 @@
 <p>
 <%= @question.body%>
 </p>
+<p><strong>Tags:</strong><%= @question.tags.map(&:name).join(", ") %></p>
 <p>
 <%= time_ago_in_words(@question.created_at) %> ago
 </p>
