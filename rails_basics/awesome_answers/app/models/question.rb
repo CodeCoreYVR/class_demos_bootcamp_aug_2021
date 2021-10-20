@@ -2,9 +2,18 @@ class Question < ApplicationRecord
     after_initialize :set_defaults
     before_save :capitalize_title
 
+    #ASSOCIATIONS
     has_many :answers, dependent: :destroy
     # when you delete a question, the answers belongs to this question can also be deleted automatically by rails.
     belongs_to :user
+    has_many :taggings, dependent: :destroy
+    has_many :tags, through: :taggings#, source: :tag
+    #if the name of the association (i.e. tags) is the same as the
+    #source singularized (i.e. tag), then the 'source' named argument
+    #can be omitted
+
+
+    #VALIDATIONS
     validates :title, presence: {message: "must be provided"}, uniqueness: {scope: :body}, length: { minimum: 2, maximum: 200 }
 
     #unique to the scope of body means title doesn't need to be unique 
