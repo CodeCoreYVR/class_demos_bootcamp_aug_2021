@@ -2,6 +2,12 @@
     Question Index Page
 </h1>
 
+<% if @tag.present? %>
+    <h2>Showing Questions tagged by:
+        <span><%= @tag.name %></span>
+    </h2>
+<% end%>
+
 <% @questions.each do |question|%>
     <div>
         <h3>

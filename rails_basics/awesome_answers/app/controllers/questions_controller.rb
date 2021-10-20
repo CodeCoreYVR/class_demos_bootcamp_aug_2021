@@ -8,11 +8,17 @@ class QuestionsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
     before_action :authorize_user!, only: [:update, :destroy]
     def index
-        @questions = Question.all.order(created_at: :desc)
+        # @questions = Question.all.order(created_at: :desc)
         # Model.all is a method built into actice record used to return
         # all records of that model
         # thi sign @ is necessary to make the variable to the view pages
         # it is called an "instance variable"
+        if params[:tag]
+            @tag = Tag.find_or_initialize_by(name: params[:tag])
+            @questions = @tag.questions.order('updated_at DESC')
+        else
+            @questions = Question.order(created_at: :desc)
+        end
     end
 
     def show
