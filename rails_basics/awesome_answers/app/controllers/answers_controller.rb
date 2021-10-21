@@ -14,7 +14,7 @@ class AnswersController < ApplicationController
         # redirect is sending a get request '\questions\:id'
         # render is rendering the page 
         if @answer.save
-            AnswerMailer.hello_world.deliver_now
+            AnswerMailer.new_answer(@answer).deliver_now
             redirect_to question_path(@question.id), notice: 'Answer created!'
         else
             # we want to stay on this page
