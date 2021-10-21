@@ -14,7 +14,9 @@ class AnswersController < ApplicationController
         # redirect is sending a get request '\questions\:id'
         # render is rendering the page 
         if @answer.save
-            AnswerMailer.new_answer(@answer).deliver_now
+            AnswerMailer.new_answer(@answer).deliver_later
+            #Or try this 
+            #AnswerMailer.delay(run_at:  1.minutes.from_now).new_answer(@answer)
             redirect_to question_path(@question.id), notice: 'Answer created!'
         else
             # we want to stay on this page

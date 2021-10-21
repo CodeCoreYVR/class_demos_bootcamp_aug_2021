@@ -69,4 +69,14 @@ Rails.application.routes.draw do
   # have an `:id` wildcard. but the controller name is still plural
 
   resources :job_posts, only: [:new, :create, :show, :index, :destroy, :edit, :update]
+
+  #Delayed Job Routes:
+  #We will go to this url to see this route: 'localhost:3000/delayed_job/overview'
+  match(
+    "/delayed_job",
+    to: DelayedJobWeb,
+    anchor: false,
+    via: [:get, :post]
+  )
+  # https://guides.rubyonrails.org/active_job_basics.html #👈🏻 Link for active jobs
 end
