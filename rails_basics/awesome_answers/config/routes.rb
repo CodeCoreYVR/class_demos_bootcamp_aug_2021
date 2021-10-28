@@ -79,4 +79,17 @@ Rails.application.routes.draw do
     via: [:get, :post]
   )
   # https://guides.rubyonrails.org/active_job_basics.html #👈🏻 Link for active jobs
+
+  # restful routes
+  # /api/questions
+  namespace :api, defaults: {format: :json} do
+    # The namespace method in Rails routes makes it automatically prepend a /api infront of the routes
+    # The option `defaults: {format: :json} will set json as the default response for all routes contained within this namespace block`
+    #/api
+    namespace :v1 do
+      # /api/v1/questions
+      resources :questions
+      resource :session, only: [:create, :destroy]
+    end
+  end
 end

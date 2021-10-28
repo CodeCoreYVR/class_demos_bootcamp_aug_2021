@@ -7,7 +7,7 @@ import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "bootstrap"
-import './selectize';
+// import './selectize';
 
 Rails.start()
 ActiveStorage.start()

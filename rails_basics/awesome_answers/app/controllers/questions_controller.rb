@@ -18,6 +18,10 @@ class QuestionsController < ApplicationController
             @questions = @tag.questions.order('updated_at DESC')
         else
             @questions = Question.order(created_at: :desc)
+            respond_to do |format|
+                format.html {render}
+                format.json {render json: @questions}
+            end
         end
     end
 
