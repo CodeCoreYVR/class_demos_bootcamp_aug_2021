@@ -1,0 +1,41 @@
+{
+    "students": [{
+            "id": "AAA",
+            "age": 22,
+            "gender": "male"
+        },
+        {
+            "id": "BBB",
+            "age": 21,
+            "gender": "male"
+        },
+        {
+            "id": "CCC",
+            "age": 25,
+            "gender": "female"
+        },
+        {
+            "id": "DDD",
+            "age": 28,
+            "gender": "female"
+        }
+    ],
+    "departments": [
+        {
+            "id": 1,
+            "name": "Computer Science"
+        },
+        {
+            "id": 2,
+            "name": "Mathematics"
+        },
+        {
+            "id": 3,
+            "name": "Biology"
+        },
+        {
+            "id": 4,
+            "name": "Geology"
+        }
+    ]
+}
