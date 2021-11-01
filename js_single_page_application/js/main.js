@@ -46,26 +46,30 @@ const refreshQuestion = () => {
 }
 refreshQuestion();
 
+const navigateTo = (sectionid, clickedLink) => {
+    // we clicked the a tags
+    // get all the section tags and remove the active class of the section tag
+    document.querySelectorAll(".page").forEach(node => {
+        node.classList.remove("active");
+    })
+    // get all the a tags and remove the active class of the a tag
+    document.querySelectorAll(".navbar a").forEach(node => {
+        node.classList.remove("active");
+    })
+    // add the active class to the section we want to display
+    const section = document.querySelector(`#${sectionid}`);
+    section.classList.add("active");
+    // add the active class to the a tag we want to focus on
+    clickedLink.classList.add("active");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".navbar").addEventListener("click", event => {
         event.preventDefault();
         const { target } = event;
         console.log(target.dataset.sectionid);
         if (target.dataset.sectionid) {
-            // we clicked the a tags
-            // get all the section tags and remove the active class of the section tag
-            document.querySelectorAll(".page").forEach(node => {
-                node.classList.remove("active");
-            })
-            // get all the a tags and remove the active class of the a tag
-            document.querySelectorAll(".navbar a").forEach(node => {
-                node.classList.remove("active");
-            })
-            // add the active class to the section we want to display
-            const section = document.querySelector(`#${target.dataset.sectionid}`);
-            section.classList.add("active");
-            // add the active class to the a tag we want to focus on
-            target.classList.add("active");
+            navigateTo(target.dataset.sectionid, target);
         }
     })
 
@@ -93,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         </ul>
                     </div>`;
                 document.querySelector("#question-show").innerHTML = questionHTML;
-
+                navigateTo("question-show", document.querySelector('[data-sectionid="question-show"]'));
             })
         }
     })
