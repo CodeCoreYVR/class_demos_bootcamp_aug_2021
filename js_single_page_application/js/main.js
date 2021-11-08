@@ -16,6 +16,7 @@
 // get a question =>        GET http://localhost:3000/api/v1/questions/28
 // create a question =>     POST http://localhost:3000/api/v1/questions
 // update a question =>     PATCH http://localhost:3000/api/v1/questions/10
+// delete a question =>     DELETE http://localhost:3000/api/v1/questions/54
 
 
 const baseUrl = "http://localhost:3000/api/v1";
@@ -47,6 +48,15 @@ const Question = {
             },
             credentials: "include",
             body: JSON.stringify(params)
+        }).then(res => res.json())
+    },
+    destroy(qid) {
+        return fetch(`${baseUrl}/questions/${qid}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include"
         }).then(res => res.json())
     }
 }
@@ -180,6 +190,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.querySelector("#edit-question-form [name=title]").value = question.title;
                     document.querySelector("#edit-question-form [name=body]").value = question.body;
                     document.querySelector("#edit-question-form [name=id]").value = question.id;
+                    navigateTo("question-edit", document.querySelector('[data-sectionid="question-edit"]'));
+                })
+            } else {
+                // delete
+                Question.destroy(dataset.qid).then(data => {
+                    console.log(data);
+                    refreshQuestion();
+                    navigateTo("question-index", document.querySelector('[data-sectionid="question-index"]'));
                 })
             }
         }
@@ -195,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(updatedParams);
         console.log(formData.get('id'));
         Question.update(updatedParams, formData.get('id')).then(data => {
-            console.log(data);
+            getOneQuestion(data.id)
         })
     })
 })
