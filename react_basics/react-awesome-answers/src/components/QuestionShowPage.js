@@ -9,6 +9,12 @@ class QuestionShowPage extends Component {
         // if you are using a class component and you want to access `this` then you have to call super(props)
         super(props);
         this.state = questionData;
+        this.deleteAnswer = this.deleteAnswer.bind(this)
+    }
+    deleteAnswer(id) {
+        this.setState(
+            { answers: this.state.answers.filter(a => a.id !== id) }
+        )
     }
     render() {
         return (
@@ -21,7 +27,7 @@ class QuestionShowPage extends Component {
                     author={this.state.author}
                 />
 
-                <AnswerList list={this.state.answers} />
+                <AnswerList list={this.state.answers} deleteAnswer={this.deleteAnswer} />
             </div>
         )
     }

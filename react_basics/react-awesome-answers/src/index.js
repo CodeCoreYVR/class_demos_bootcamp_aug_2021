@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-// import QuestionShowPage from './components/QuestionShowPage';
+import QuestionShowPage from './components/QuestionShowPage';
 import QuestionIndexPage from './components/QuestionIndexPage';
 
 // ReactDOM.render(<QuestionDetails name="testname" />,
@@ -11,8 +11,8 @@ import QuestionIndexPage from './components/QuestionIndexPage';
 
 
 ReactDOM.render(
-  // <QuestionShowPage />,
-  <QuestionIndexPage />,
+  <QuestionShowPage />,
+  // <QuestionIndexPage />,
   document.getElementById('root')
 );
 
