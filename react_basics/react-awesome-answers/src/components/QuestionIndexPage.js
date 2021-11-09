@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import questionIndexData from '../mock_data/questionIndexData';
+import NewQuestionForm from './NewQuestionForm'
 
 class QuestionIndexPage extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class QuestionIndexPage extends Component {
             location: "VAN",
             name: "CodeCore"
         }
+        this.createQuestion = this.createQuestion.bind(this)
     }
 
     deleteQuestion(id) {
@@ -28,7 +30,28 @@ class QuestionIndexPage extends Component {
             questions: this.state.questions.filter(q => q.id !== id)
         })
     }
+    createQuestion(params) {
 
+        this.setState((state, props) => {
+            return {
+                questions: [
+                    ...state.questions, // copy all the existing questions
+                    {
+                        id: (Math.max(...state.questions.map(q => q.id)) + 1),
+                        // title: params.title,
+                        //  body: params.body
+                        ...params
+                    }
+                ]
+            }
+        })
+        // this.setState({
+        //     questions:[
+        //         ...this.state.questions,
+
+        //     ]
+        // })
+    }
     render() {
         return (
             <div>
@@ -37,6 +60,8 @@ class QuestionIndexPage extends Component {
                         <h1 key={e.id}>{e.id} - {e.title} <button onClick={() => this.deleteQuestion(e.id)}>Delete</button> </h1>
                     )
                 })}
+                <NewQuestionForm createQuestion={this.createQuestion} />
+                {/* <NewQuestionForm createQuestion={(params) => this.createQuestion(params)} /> */}
             </div>
         )
     }
