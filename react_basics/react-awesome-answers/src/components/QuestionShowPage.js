@@ -9,7 +9,7 @@ class QuestionShowPage extends Component {
         // if you are using a class component and you want to access `this` then you have to call super(props)
         super(props);
         this.state = questionData;
-        this.deleteAnswer = this.deleteAnswer.bind(this)
+        // this.deleteAnswer = this.deleteAnswer.bind(this)
     }
     deleteAnswer(id) {
         this.setState(
@@ -27,7 +27,7 @@ class QuestionShowPage extends Component {
                     author={this.state.author}
                 />
 
-                <AnswerList list={this.state.answers} deleteAnswer={this.deleteAnswer} />
+                <AnswerList list={this.state.answers} deleteAnswer={(id) => this.deleteAnswer(id)} />
             </div>
         )
     }
