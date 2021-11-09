@@ -1,27 +1,31 @@
-import React from "react";
+import React, { Component } from "react";
 import AnswerList from "./AnswerList";
 import QuestionDetails from './QuestionDetails';
+import questionData from '../mock_data/questionData';
 
-const QuestionShowPage = () => {
-    return (
-        <div>
-            <QuestionDetails
-                name="What's ur favourite color?"
-                body="Red, Red, Red"
-                view_count={20}
-                created_at={new Date()}
-                author={{ full_name: "Admin User" }}
-            />
+class QuestionShowPage extends Component {
+    // this
+    constructor(props) {
+        // if you are using a class component and you want to access `this` then you have to call super(props)
+        super(props);
+        this.state = questionData;
+    }
+    render() {
+        return (
+            <div>
+                <QuestionDetails
+                    name={this.state.title}
+                    body={this.state.body}
+                    view_count={this.state.view_count}
+                    created_at={new Date(this.state.created_at)}
+                    author={this.state.author}
+                />
 
-            <AnswerList list={
-                [
-                    { body: "red", author_full_name: "aaa", created_at: "2021-10-01" },
-                    { body: "yellow", author_full_name: "bbb", created_at: "2021-09-01" },
-                    { body: "blue", author_full_name: "ccc", created_at: "2021-12-01" },
-                ]
-            } />
-        </div>
-    )
+                <AnswerList list={this.state.answers} />
+            </div>
+        )
+    }
 }
+
 
 export default QuestionShowPage;
