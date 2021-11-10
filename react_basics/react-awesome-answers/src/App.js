@@ -5,6 +5,7 @@ import QuestionIndexPage from './components/QuestionIndexPage';
 // import CurrentDateTime from './components/CurrentDateTime';
 import { Session } from './requests';
 import { BrowserRouter, Route } from 'react-router-dom';
+import NavBar from './components/NavBar'
 
 // function App() {
 //   return (
@@ -41,6 +42,7 @@ class App extends Component {
     return(
      
       <BrowserRouter>
+            <NavBar/>
             <Route exact path='/questions' component={QuestionIndexPage} />    
             <Route path='/questions/:id' component={QuestionShowPage} ></Route>
             <Route
