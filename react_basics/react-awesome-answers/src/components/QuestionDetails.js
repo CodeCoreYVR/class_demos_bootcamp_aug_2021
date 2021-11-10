@@ -8,7 +8,7 @@ function QuestionDetails(props) {
             <p>
                 {props.body}
                 <br />
-                By {props.author.full_name}
+                By { props.author ? props.author.full_name : null}
             </p>
             <p>
                 Seen {props.view_count} times

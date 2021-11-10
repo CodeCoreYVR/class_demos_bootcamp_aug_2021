@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-// import QuestionShowPage from './components/QuestionShowPage';
+import QuestionShowPage from './components/QuestionShowPage';
 import QuestionIndexPage from './components/QuestionIndexPage';
 // import CurrentDateTime from './components/CurrentDateTime';
 import { Session } from './requests'
@@ -38,7 +38,7 @@ class App extends Component {
   }
   render(){
     return(
-      <QuestionIndexPage />  
+      <QuestionShowPage /> 
     )
   }
 }

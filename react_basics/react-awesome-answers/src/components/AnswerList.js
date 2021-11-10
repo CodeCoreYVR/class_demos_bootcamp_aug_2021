@@ -2,12 +2,14 @@ import React from "react";
 import AnswerDetails from './AnswerDetails';
 
 export default function AnswerList(props) {
+    const answers = props.list
     return (
         <div>
             <h4>Answer List:</h4>
             <ul>
                 {
-                    props.list.map((e, i) => {
+                    answers ?
+                    answers.map((e, i) => {
                         return <AnswerDetails
                             key={i}
                             body={e.body}
@@ -17,6 +19,8 @@ export default function AnswerList(props) {
                             deleteAnswer={props.deleteAnswer}
                         />
                     })
+                    :
+                    null
                 }
             </ul>
         </div>
