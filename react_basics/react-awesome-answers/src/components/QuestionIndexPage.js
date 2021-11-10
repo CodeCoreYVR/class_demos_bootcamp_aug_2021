@@ -1,16 +1,31 @@
 import React, { Component } from 'react';
-import questionIndexData from '../mock_data/questionIndexData';
+// import questionIndexData from '../mock_data/questionIndexData';
 import NewQuestionForm from './NewQuestionForm'
+import { Question } from '../requests'
 
 class QuestionIndexPage extends Component {
     constructor(props) {
         super(props);
+        // this.state = {
+        //     questions: questionIndexData,
+        //     location: "VAN",
+        //     name: "CodeCore"
+        // }
         this.state = {
-            questions: questionIndexData,
-            location: "VAN",
-            name: "CodeCore"
+            questions: []
         }
         this.createQuestion = this.createQuestion.bind(this)
+    }
+
+    componentDidMount(){
+        Question.index()
+        .then((questionsData) => {
+            this.setState((state)=> {
+                return {
+                    questions: questionsData
+                }
+            })
+        })
     }
 
     deleteQuestion(id) {
