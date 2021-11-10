@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AnswerList from "./AnswerList";
 import QuestionDetails from './QuestionDetails';
 // import questionData from '../mock_data/questionData';
-import {Question} from '../requests'
+import {Question} from '../requests';
 
 class QuestionShowPage extends Component {
     // this
@@ -15,7 +15,7 @@ class QuestionShowPage extends Component {
     }
 
     componentDidMount(){
-       Question.show(18) //just hard coded to fetch question 18 for now
+       Question.show(this.props.match.params.id) //not hard coded anymore because we have access to params through router
        .then((fetchedAPIQuestion) => {
            this.setState((state) => {
                return {

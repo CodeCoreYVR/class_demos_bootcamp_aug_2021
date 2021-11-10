@@ -4,7 +4,7 @@ import QuestionShowPage from './components/QuestionShowPage';
 import QuestionIndexPage from './components/QuestionIndexPage';
 // import CurrentDateTime from './components/CurrentDateTime';
 import { Session } from './requests';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 // function App() {
 //   return (
@@ -41,14 +41,22 @@ class App extends Component {
     return(
      
       <BrowserRouter>
-          <Routes>
-            <Route exact path='/questions' element={<QuestionIndexPage/>} />    
-            <Route path='/questions/:id' element={<QuestionShowPage/>}></Route>
-          </Routes>
+            <Route exact path='/questions' component={QuestionIndexPage} />    
+            <Route path='/questions/:id' component={QuestionShowPage} ></Route>
+            <Route
+              path="*"
+              element={
+                <main style={{ padding: "1rem" }}>
+                  <p>There's nothing here!</p>
+                </main>
+              }
+            />
       </BrowserRouter>
       
     )
   }
 }
+
+//The "*" has special meaning here. It will match only when no other routes do.
 
 export default App;
