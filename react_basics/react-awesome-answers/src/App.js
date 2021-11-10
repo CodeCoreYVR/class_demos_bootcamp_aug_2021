@@ -4,7 +4,7 @@ import QuestionShowPage from './components/QuestionShowPage';
 import QuestionIndexPage from './components/QuestionIndexPage';
 // import CurrentDateTime from './components/CurrentDateTime';
 import { Session } from './requests';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 // function App() {
 //   return (
@@ -41,9 +41,10 @@ class App extends Component {
     return(
      
       <BrowserRouter>
-        
-        <Route exact path='/questions' component={QuestionIndexPage} />    
-        <Route path='/questions/:id' component={QuestionShowPage}></Route>
+          <Routes>
+            <Route exact path='/questions' element={<QuestionIndexPage/>} />    
+            <Route path='/questions/:id' element={<QuestionShowPage/>}></Route>
+          </Routes>
       </BrowserRouter>
       
     )
