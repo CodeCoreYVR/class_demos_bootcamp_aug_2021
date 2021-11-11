@@ -12,6 +12,8 @@ class QuestionShowPage extends Component {
         // this.state = questionData;
         // this.deleteAnswer = this.deleteAnswer.bind(this)
         this.state = { stateQuestion: {} }
+
+        this.deleteAnswer = this.deleteAnswer.bind(this);
     }
 
     componentDidMount(){
@@ -31,21 +33,22 @@ class QuestionShowPage extends Component {
 
     deleteAnswer(id) {
         this.setState(
-            { answers: this.state.answers.filter(a => a.id !== id) }
+            { answers: this.state.stateQuestion.answers.filter(a => a.id !== id) }
         )
     }
     render() {
+        const { title, body, author, view_count, created_at } = this.state.stateQuestion;
         return (
             <div>
                 <QuestionDetails
-                    name={this.state.title}
-                    body={this.state.body}
-                    view_count={this.state.view_count}
-                    created_at={new Date(this.state.created_at)}
-                    author={this.state.author}
+                    name={title}
+                    body={body}
+                    view_count={view_count}
+                    created_at={new Date(created_at)}
+                    author={author}
                 />
 
-                <AnswerList list={this.state.answers} deleteAnswer={(id) => this.deleteAnswer(id)} />
+                <AnswerList list={this.state.stateQuestion.answers} deleteAnswer={(id) => this.deleteAnswer(id)} />
             </div>
         )
     }
