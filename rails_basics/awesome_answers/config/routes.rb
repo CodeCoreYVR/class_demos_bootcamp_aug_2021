@@ -90,7 +90,11 @@ Rails.application.routes.draw do
       # /api/v1/questions
       resources :questions
       resource :session, only: [:create, :destroy]
-      get('users/current', {to:'users#current'})
+      # get('users/current', {to:'users#current'})
+      resources :users, only: [:create] do
+        #get :current -> api/v1/users/:user_id/current
+        get :current, on: :collection # -> api/v1/users/current
+      end
     end
   end
 end
