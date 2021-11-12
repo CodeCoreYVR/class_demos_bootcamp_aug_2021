@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import NewQuestionPage from './components/NewQuestionPage';
 import SignInPage from './components/SignInPage';
+import AuthRoute from './components/AuthRoute';
 
 
 // function App() {
@@ -57,7 +58,7 @@ class App extends Component {
               render={(routeProps) => <SignInPage {...routeProps} onSignIn={this.getCurrentUser}/>}>
               </Route>
             <Route exact path='/questions' component={QuestionIndexPage} />  
-            <Route path='/questions/new' component={NewQuestionPage}></Route>  
+            <AuthRoute isAuthenticated={!!this.state.user} path='/questions/new' component={NewQuestionPage}></AuthRoute>  
             <Route path='/questions/:id' component={QuestionShowPage} ></Route>
             <Route
               path="*"
