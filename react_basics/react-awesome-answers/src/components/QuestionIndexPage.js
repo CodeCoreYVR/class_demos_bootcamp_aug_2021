@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 // import questionIndexData from '../mock_data/questionIndexData';
-import NewQuestionForm from './NewQuestionForm'
-import { Question } from '../requests'
+import NewQuestionForm from './NewQuestionForm';
+import { Question } from '../requests';
+import { Link } from 'react-router-dom'
 
 class QuestionIndexPage extends Component {
     constructor(props) {
@@ -72,7 +73,7 @@ class QuestionIndexPage extends Component {
             <div>
                 {this.state.questions.map((e) => {
                     return (
-                        <h1 key={e.id}>{e.id} - {e.title} <button onClick={() => this.deleteQuestion(e.id)}>Delete</button> </h1>
+                        <h1 key={e.id}>{e.id} - <Link to={`/questions/${e.id}`}>{e.title}</Link> <button onClick={() => this.deleteQuestion(e.id)}>Delete</button> </h1>
                     )
                 })}
                 <NewQuestionForm createQuestion={this.createQuestion} />
