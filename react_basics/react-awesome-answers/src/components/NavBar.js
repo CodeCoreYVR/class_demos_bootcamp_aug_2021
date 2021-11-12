@@ -15,14 +15,17 @@ const NavBar = ({ currentUser, onSignOut }) => {
             {
                 currentUser ? (
                     <>
-                    <NavLink to='/questions/new'>New Question</NavLink>
-                    - 
-                    <span>Welcome, {currentUser.first_name}</span>
-                    -
-                    <button onClick={handleSignOut}>Sign Out</button>
+                        <NavLink to='/questions/new'>New Question</NavLink>
+                        - 
+                        <span>Welcome, {currentUser.first_name}</span>
+                        -
+                        <button onClick={handleSignOut}>Sign Out</button>
                     </>
                 ) : (
-                    <NavLink to='sign_in'>Sign In</NavLink>
+                    <>
+                        <NavLink to='sign_in'>Sign In</NavLink>
+                        <NavLink to='sign_up'>Sign Up</NavLink>
+                    </>
                 )
             }
             

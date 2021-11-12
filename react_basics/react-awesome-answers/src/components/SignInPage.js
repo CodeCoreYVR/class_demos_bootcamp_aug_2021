@@ -29,7 +29,7 @@ function SignInPage(props){
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="email">Email</label>
-                    <input type="email" name="email" id="email" />   
+                    <input type="text" name="email" id="email" />   
                 </div>
                 <div>
                     <label htmlFor="password">Password</label>
