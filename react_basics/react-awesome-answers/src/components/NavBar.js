@@ -1,14 +1,26 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-const NavBar = (props) => {
+const NavBar = ({ currentUser }) => {
     return(
         <nav>
             <NavLink to='/questions'>Questions Index</NavLink>
             |
-            <NavLink to='/questions/new'>Question New</NavLink>
+            {
+                currentUser ? (
+                    <>
+                    <NavLink to='/questions/new'>New Question</NavLink>
+                    - 
+                    <span>Welcome, {currentUser.first_name}</span>
+                    </>
+                ) : (
+                    <NavLink to='sign_in'>Sign In</NavLink>
+                )
+            }
+            
         </nav>
     )
 }
 
 export default NavBar;
+

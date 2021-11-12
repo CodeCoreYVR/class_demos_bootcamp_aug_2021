@@ -3,10 +3,13 @@ import './App.css';
 import QuestionShowPage from './components/QuestionShowPage';
 import QuestionIndexPage from './components/QuestionIndexPage';
 // import CurrentDateTime from './components/CurrentDateTime';
-import { Session } from './requests';
+// import { Session } from './requests';
+import { User } from './requests';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import NewQuestionPage from './components/NewQuestionPage';
+import SignInPage from './components/SignInPage';
+
 
 // function App() {
 //   return (
@@ -27,24 +30,30 @@ class App extends Component {
   }
 
   componentDidMount(){
-    Session.create({
-      email: 'admin@user.com',
-      password: '123'
-    })
-    .then(user => {
-      this.setState((state) => {
-        return {
-          user: user
-        }
-      })
+    this.getCurrentUser()
+  }
+
+  getCurrentUser = () => {
+    return User.current().then(user => {
+      //This is the safe navigation opreator
+      //Similar to user && user.id
+      if (user?.id){
+        this.setState(state => {
+          return { user }
+        })
+      }
     })
   }
+
   render(){
     return(
      
       <BrowserRouter>
-            <NavBar/>
+            <NavBar currentUser={this.state.user}/>
             <Switch>
+              <Route exact path ='/sign_in' 
+              render={(routeProps) => <SignInPage {...routeProps} onSignIn={this.getCurrentUser}/>}>
+              </Route>
             <Route exact path='/questions' component={QuestionIndexPage} />  
             <Route path='/questions/new' component={NewQuestionPage}></Route>  
             <Route path='/questions/:id' component={QuestionShowPage} ></Route>
