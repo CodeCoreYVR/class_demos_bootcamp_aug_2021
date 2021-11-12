@@ -45,11 +45,13 @@ class App extends Component {
     })
   }
 
+  onSignOut = () => { this.setState( { user : null })}
+
   render(){
     return(
      
       <BrowserRouter>
-            <NavBar currentUser={this.state.user}/>
+            <NavBar currentUser={this.state.user} onSignOut={this.onSignOut}/>
             <Switch>
               <Route exact path ='/sign_in' 
               render={(routeProps) => <SignInPage {...routeProps} onSignIn={this.getCurrentUser}/>}>
