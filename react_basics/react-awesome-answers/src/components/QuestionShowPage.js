@@ -1,58 +1,48 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import AnswerList from "./AnswerList";
 import QuestionDetails from './QuestionDetails';
 // import questionData from '../mock_data/questionData';
-import {Question} from '../requests';
+import { Question } from '../requests';
 
-class QuestionShowPage extends Component {
-    // this
-    constructor(props) {
-        // if you are using a class component and you want to access `this` then you have to call super(props)
-        super(props);
-        // this.state = questionData;
-        // this.deleteAnswer = this.deleteAnswer.bind(this)
-        this.state = { stateQuestion: {} }
 
-        this.deleteAnswer = this.deleteAnswer.bind(this);
-    }
+export default function QuestionShowPage(props) {
+    const [question, setQuestion] = useState({});
 
-    componentDidMount(){
-       Question.show(this.props.match.params.id) //not hard coded anymore because we have access to params through router
-       .then((fetchedAPIQuestion) => {
-           this.setState((state) => {
-               return {
-                   stateQuestion: fetchedAPIQuestion
-               }
-           })
-       }) 
-    }
+    useEffect(() => {
+        Question.show(props.match.params.id) //not hard coded anymore because we have access to params through router
+            .then((fetchedAPIQuestion) => {
+                setQuestion(fetchedAPIQuestion);
+            })
+    }, [])
 
-    componentDidUpdate(){
-        console.log('the state has been updated with the fetched data')
-    }
-
-    deleteAnswer(id) {
-        this.setState(
-            { answers: this.state.stateQuestion.answers.filter(a => a.id !== id) }
+    //  {
+    // id:1,
+    // title:'what is this'
+    // body:'nothing'
+    // answers:[]
+    // }
+    const deleteAnswer = id => {
+        const { answers, ...rest } = question;
+        setQuestion(
+            {
+                answers: answers.filter(a => a.id !== id),
+                ...rest
+            }
         )
     }
-    render() {
-        const { title, body, author, view_count, created_at } = this.state.stateQuestion;
-        return (
-            <div>
-                <QuestionDetails
-                    name={title}
-                    body={body}
-                    view_count={view_count}
-                    created_at={new Date(created_at)}
-                    author={author}
-                />
+    const { title, body, author, view_count, created_at } = question;
+    return (
+        <div>
+            <QuestionDetails
+                name={title}
+                body={body}
+                view_count={view_count}
+                created_at={new Date(created_at)}
+                author={author}
+            />
 
-                <AnswerList list={this.state.stateQuestion.answers} deleteAnswer={(id) => this.deleteAnswer(id)} />
-            </div>
-        )
-    }
+            <AnswerList list={question.answers} deleteAnswer={(id) => deleteAnswer(id)} />
+        </div>
+    )
 }
 
-
-export default QuestionShowPage;
