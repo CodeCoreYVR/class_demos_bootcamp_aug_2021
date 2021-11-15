@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import QuestionShowPage from './components/QuestionShowPage';
 import QuestionIndexPage from './components/QuestionIndexPage';
@@ -11,6 +11,7 @@ import NewQuestionPage from './components/NewQuestionPage';
 import SignInPage from './components/SignInPage';
 import AuthRoute from './components/AuthRoute';
 import SignUpPage from './components/SignUpPage';
+import UseStateHook from './components/UseStateHook';
 
 
 // function App() {
@@ -23,7 +24,7 @@ import SignUpPage from './components/SignUpPage';
 // }
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       // clocksCount: [1], //an array of something
@@ -31,7 +32,7 @@ class App extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getCurrentUser()
   }
 
@@ -39,7 +40,7 @@ class App extends Component {
     return User.current().then(user => {
       //This is the safe navigation opreator
       //Similar to user && user.id
-      if (user?.id){
+      if (user?.id) {
         this.setState(state => {
           return { user }
         })
@@ -47,36 +48,37 @@ class App extends Component {
     })
   }
 
-  onSignOut = () => { this.setState( { user : null })}
+  onSignOut = () => { this.setState({ user: null }) }
 
-  render(){
-    return(
-     
+  render() {
+    return (
+
       <BrowserRouter>
-            <NavBar currentUser={this.state.user} onSignOut={this.onSignOut}/>
-            <Switch>
-              <Route exact path ='/sign_in' 
-              render={(routeProps) => <SignInPage {...routeProps} onSignIn={this.getCurrentUser}/>}>
-              </Route>
-              <Route
-              exact path = '/sign_up'
-              render={(routeProps) => <SignUpPage {...routeProps} onSignUp={this.getCurrentUser}/>}
-              >
-              </Route>
-            <Route exact path='/questions' component={QuestionIndexPage} />  
-            <AuthRoute isAuthenticated={!!this.state.user} path='/questions/new' component={NewQuestionPage}></AuthRoute>  
-            <Route path='/questions/:id' component={QuestionShowPage} ></Route>
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p>There's nothing here!</p>
-                </main>
-              }
-            />
-            </Switch>
+        <NavBar currentUser={this.state.user} onSignOut={this.onSignOut} />
+        <Switch>
+          <Route exact path='/sign_in'
+            render={(routeProps) => <SignInPage {...routeProps} onSignIn={this.getCurrentUser} />}>
+          </Route>
+          <Route
+            exact path='/sign_up'
+            render={(routeProps) => <SignUpPage {...routeProps} onSignUp={this.getCurrentUser} />}
+          >
+          </Route>
+          <Route exact path='/questions' component={QuestionIndexPage} />
+          <AuthRoute isAuthenticated={!!this.state.user} path='/questions/new' component={NewQuestionPage}></AuthRoute>
+          <Route path='/questions/:id' component={QuestionShowPage} ></Route>
+          <Route path='/use_state' component={UseStateHook} />
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "1rem" }}>
+                <p>There's nothing here!</p>
+              </main>
+            }
+          />
+        </Switch>
       </BrowserRouter>
-      
+
     )
   }
 }
