@@ -13,6 +13,7 @@ import AuthRoute from './components/AuthRoute';
 import SignUpPage from './components/SignUpPage';
 import UseStateHook from './components/UseStateHook';
 import UseEffectHook from './components/UseEffectHook';
+import AuthContext from './context/auth-context';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -30,33 +31,33 @@ export default function App() {
   }
   const onSignOut = () => { setUser(null) }
   return (
-
-    <BrowserRouter>
-      <NavBar currentUser={user} onSignOut={onSignOut} />
-      <Switch>
-        <Route exact path='/sign_in'
-          render={(routeProps) => <SignInPage {...routeProps} onSignIn={getCurrentUser} />}>
-        </Route>
-        <Route
-          exact path='/sign_up'
-          render={(routeProps) => <SignUpPage {...routeProps} onSignUp={getCurrentUser} />}
-        >
-        </Route>
-        <Route exact path='/questions' component={QuestionIndexPage} />
-        <AuthRoute isAuthenticated={!!user} path='/questions/new' component={NewQuestionPage}></AuthRoute>
-        <Route path='/questions/:id' component={QuestionShowPage} ></Route>
-        <Route path='/use_state' component={UseStateHook} />
-        <Route path='/use_effect' component={UseEffectHook} />
-        <Route
-          path="*"
-          element={
-            <main style={{ padding: "1rem" }}>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
-      </Switch>
-    </BrowserRouter>
-
+    <AuthContext.Provider value={{ user: user }}>
+      <BrowserRouter>
+        <NavBar currentUser={user} onSignOut={onSignOut} />
+        <Switch>
+          <Route exact path='/sign_in'
+            render={(routeProps) => <SignInPage {...routeProps} onSignIn={getCurrentUser} />}>
+          </Route>
+          <Route
+            exact path='/sign_up'
+            render={(routeProps) => <SignUpPage {...routeProps} onSignUp={getCurrentUser} />}
+          >
+          </Route>
+          <Route exact path='/questions' component={QuestionIndexPage} />
+          <AuthRoute isAuthenticated={!!user} path='/questions/new' component={NewQuestionPage}></AuthRoute>
+          <Route path='/questions/:id' component={QuestionShowPage} ></Route>
+          <Route path='/use_state' component={UseStateHook} />
+          <Route path='/use_effect' component={UseEffectHook} />
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "1rem" }}>
+                <p>There's nothing here!</p>
+              </main>
+            }
+          />
+        </Switch>
+      </BrowserRouter>
+    </AuthContext.Provider >
   )
 }
