@@ -1,8 +1,7 @@
-import { render } from '@testing-library/react';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class CurrentDateTime extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             date: new Date()
@@ -11,35 +10,35 @@ class CurrentDateTime extends Component {
     }
 
     //gets triggered after the component is rerendered
-    componentDidMount(){
+    componentDidMount() {
         console.log('3: componentDidMount')
         this.intervalId = setInterval(() => {
             this.setState((state) => {
-                return{
+                return {
                     date: new Date()
                 }
             })
         }, 1000)
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         console.log('4: componentDidUpdate')
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         console.log('5: componentWillUnmount')
         clearInterval(this.intervalId)
     }
-    
-    render(){
+
+    render() {
         console.log('2: render fired')
         return (
             <div>
                 {
                     this.props.shouldShowTime ?
-                    this.state.date.toLocaleTimeString()
-                    :
-                    this.state.date.toLocaleDateString()
+                        this.state.date.toLocaleTimeString()
+                        :
+                        this.state.date.toLocaleDateString()
                 }
             </div>
         )

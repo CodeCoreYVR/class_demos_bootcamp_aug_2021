@@ -12,6 +12,7 @@ import SignInPage from './components/SignInPage';
 import AuthRoute from './components/AuthRoute';
 import SignUpPage from './components/SignUpPage';
 import UseStateHook from './components/UseStateHook';
+import UseEffectHook from './components/UseEffectHook';
 
 
 // function App() {
@@ -68,6 +69,7 @@ class App extends Component {
           <AuthRoute isAuthenticated={!!this.state.user} path='/questions/new' component={NewQuestionPage}></AuthRoute>
           <Route path='/questions/:id' component={QuestionShowPage} ></Route>
           <Route path='/use_state' component={UseStateHook} />
+          <Route path='/use_effect' component={UseEffectHook} />
           <Route
             path="*"
             element={
