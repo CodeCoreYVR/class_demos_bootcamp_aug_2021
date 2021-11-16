@@ -1,5 +1,6 @@
 import "./a.js";
 import cat from './imgs/cat-cat.gif';
+import "./styles/main.css"
 
 console.log("This is index.js");
 

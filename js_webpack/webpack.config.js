@@ -1,4 +1,6 @@
-const path = require("path")
+const path = require("path");
+const HTMLWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = {
     mode: "development",
     // Then entry is the file where webpack begins to bundle your files
@@ -26,7 +28,27 @@ module.exports = {
                     outputPath: "images/",
                     name: '[name].[ext]'
                 }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    { loader: "style-loader" },
+                    { loader: "css-loader" }
+                ]
+            },
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"
             }
         ]
-    }
+    },
+    plugins: [
+        new HTMLWebpackPlugin(
+            {
+                title: "Webpack Demo",
+                chunks: ["client"]
+            }
+        )
+    ]
 }
