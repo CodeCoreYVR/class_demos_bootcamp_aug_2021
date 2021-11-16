@@ -1,19 +1,21 @@
-import "./a.js";
 import cat from './imgs/cat-cat.gif';
-import "./styles/main.css"
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-console.log("This is index.js");
 
-console.log("test test ================");
-
-const arr = [1, 2, 3, 4, 5];
-
-for (let i = 0; i < arr.length; i++) {
-    console.log(arr[i] * 10);
+const App = () => {
+    return (
+        <div>
+            <h1>Here's a picture</h1>
+            <img src={cat} alt="" srcset="" />
+        </div>
+    )
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const img = document.createElement("img");
-    img.src = cat;
-    document.querySelector("body").append(img);
+    const root = document.createElement("div");
+    root.id = "root";
+    document.body.append(root);
+
+    ReactDOM.render(<App />, root);
 })
