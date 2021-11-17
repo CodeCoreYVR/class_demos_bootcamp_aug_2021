@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import FormErrors from './FormErrors';
 
 export default function NewQuestionForm(props) {
     const handleSubmit = (event) => {
@@ -17,11 +18,15 @@ export default function NewQuestionForm(props) {
                 <label htmlFor="title">Title</label>
                 <br />
                 <input type="text" name="title" id="title" />
+                <FormErrors forField="title" errors={props.errors}/>
+                <br/>
             </div>
             <div>
                 <label htmlFor="body">Body</label>
                 <br />
                 <input type="text" name="body" id="body" />
+                <FormErrors forField="body" errors={props.errors}/>
+                <br/>
             </div>
             <div>
                 <input type="submit" value="Submit" />
