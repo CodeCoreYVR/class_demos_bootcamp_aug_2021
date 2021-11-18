@@ -11,6 +11,9 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  #Host Authorization for Oauth middleware - clear whitelists
+  config.hosts.clear
+
   # Show full error reports.
   config.consider_all_requests_local = true
 
