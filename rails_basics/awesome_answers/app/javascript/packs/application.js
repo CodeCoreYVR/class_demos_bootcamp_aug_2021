@@ -8,6 +8,8 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "bootstrap"
 // import './selectize';
+import "underscore";
+// import Gmaps from "./gmaps_google";
 
 Rails.start()
 ActiveStorage.start()

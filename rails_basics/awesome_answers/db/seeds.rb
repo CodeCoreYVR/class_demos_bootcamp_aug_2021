@@ -20,6 +20,7 @@ PASSWORD = '123'
 super_user = User.create(
     first_name: "Admin",
     last_name: "User",
+    address: "628 6th Avenue, New Westminster, BC,Canada",
     email: "admin@user.com",
     password: PASSWORD,
     is_admin: true
@@ -31,6 +32,7 @@ super_user = User.create(
     User.create(
         first_name:first_name,
         last_name: last_name,
+        address: "628 6th Avenue, New Westminster, BC,Canada",
         email: "#{first_name}@#{last_name}.com",
         password: PASSWORD
     )

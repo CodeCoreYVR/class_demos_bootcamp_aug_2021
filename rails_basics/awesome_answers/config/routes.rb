@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "/auth/github", as: :sign_in_with_github
   get "auth/:provider/callback", to: "callbacks#index"
 
-  
+
   # when people typed "localhost:3000" 
   # it's sending a http get request to this path "localhost:3000"
   # it will be handled by "WelcomeController" the "index" action
@@ -65,7 +65,7 @@ Rails.application.routes.draw do
     # GET "/questions/liked" 
   end
 
-  resources :users, only:[:new, :create]
+  resources :users, only:[:new, :create, :show]
 
   resource :session, only: [:new, :create, :destroy]
   # `resource` is singular instead of `resources`

@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+    geocoded_by :address
+    after_validation :geocode
+
     has_secure_password
     # it requires a column named password_digest and the gem bcrypt
     # it will add a presence validation ro the password field
