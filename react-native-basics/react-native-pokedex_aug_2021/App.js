@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Header from './components/Header'
+import Header from './components/Header';
+import PokemonList from './components/PokemonList'
 
 export default function App() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -21,9 +22,7 @@ export default function App() {
     <View style={styles.container}>
       <Header />
       <View style={styles.body}>
-        <Text>
-          List here
-        </Text>
+        <PokemonList list={pokemonList} />
       </View>
     </View>
   );
@@ -36,6 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   body: {
-    flex: 5
+    flex: 5,
+    width: "100%"
   }
 });
