@@ -1,16 +1,24 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableHighlight } from 'react-native';
 
 export default function PokemonList(props) {
     return (
         <ScrollView>
             {props.list.map((pokemon, i) => {
                 return (
-                    <View key={i} style={styles.pokemon}>
-                        <Text style={{ fontSize: 20 }}>
-                            {pokemon.name}
-                        </Text>
-                    </View>
+                    <TouchableHighlight
+                        key={i}
+                        underlayColor="lightblue"
+                        onPress={() => {
+                            props.navigation.navigate("Pokemon Details", { pokemon })
+                        }}
+                    >
+                        <View style={styles.pokemon}>
+                            <Text style={{ fontSize: 20 }}>
+                                {pokemon.name}
+                            </Text>
+                        </View>
+                    </TouchableHighlight>
                 )
             })}
         </ScrollView>
