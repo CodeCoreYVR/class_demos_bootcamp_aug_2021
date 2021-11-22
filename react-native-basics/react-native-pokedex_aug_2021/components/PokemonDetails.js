@@ -16,9 +16,11 @@ export default function PokemonDetails(props) {
             <Button title="Go Back" onPress={() => {
                 props.navigation.goBack();
             }} />
-            <Image source={{
-                url: pokemon.id ? pokemon.sprites.front_default : ""
-            }}
+            <Image
+                // source={{
+                //     url: pokemon.id ? pokemon.sprites.front_default : ""
+                // }}
+                source={{ uri: pokemon.id ? pokemon.sprites.front_default : "" }}
                 style={styles.image}
             />
             <Text style={styles.h1}>{pokemon.name}</Text>
