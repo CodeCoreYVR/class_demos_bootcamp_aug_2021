@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
-import './css/GiftUserForm.css'
+import './css/GiftUserForm.css';
+import { Gift } from '../requests';
 
 const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -20,9 +21,10 @@ const CARD_ELEMENT_OPTIONS = {
     },
 };
 
-export default function GiftUserForm() {
+export default function GiftUserForm(props) {
     const stripe = useStripe();
     const elements = useElements();
+    const [amount, setAmount] = useState(0);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -40,6 +42,10 @@ export default function GiftUserForm() {
             // Send the token to your server.
             // get the amount and send the request to Rails API
 
+            Gift.create({ token: result.token.id, amount: amount, answer_id: props.answer_id })
+                .then(data => {
+                    console.log(data);
+                })
         }
     };
 
@@ -47,7 +53,9 @@ export default function GiftUserForm() {
         <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="amount">Amount:</label>
-                <input type="number" name="amount" id="amount" height="40px" />
+                <input type="number" name="amount" id="amount" height="40px" value={amount}
+                    onChange={e => setAmount(e.currentTarget.value)}
+                />
             </div>
             <label>
                 Card details

@@ -50,7 +50,7 @@ export default function App() {
           <Route path='/questions/:id' component={QuestionShowPage} ></Route>
           <Route path='/use_state' component={UseStateHook} />
           <Route path='/use_effect' component={UseEffectHook} />
-          <Route path='/gift' component={GiftUserPage} />
+          <Route path='/gift/:id' component={GiftUserPage} />
           <Route component={NotFoundPage}></Route>
         </Switch>
       </BrowserRouter>
