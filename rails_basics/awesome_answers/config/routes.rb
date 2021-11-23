@@ -100,6 +100,7 @@ Rails.application.routes.draw do
         #get :current -> api/v1/users/:user_id/current
         get :current, on: :collection # -> api/v1/users/current
       end
+      resources :gifts, only: [:create]
     end
     match "*unmatched_route", to:"application#not_found", via: :all
     #The route will match with any URL that hasn't been matched already

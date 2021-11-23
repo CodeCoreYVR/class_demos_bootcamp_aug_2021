@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import './css/GiftUserForm.css';
 import { Gift } from '../requests';
+import { withRouter } from 'react-router-dom'
 
 const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -21,7 +22,7 @@ const CARD_ELEMENT_OPTIONS = {
     },
 };
 
-export default function GiftUserForm(props) {
+const GiftUserForm = (props) => {
     const stripe = useStripe();
     const elements = useElements();
     const [amount, setAmount] = useState(0);
@@ -44,7 +45,12 @@ export default function GiftUserForm(props) {
 
             Gift.create({ token: result.token.id, amount: amount, answer_id: props.answer_id })
                 .then(data => {
-                    console.log(data);
+                    if (data.status === 200) {
+                        alert('Success');
+                        props.history.push('/')
+                    } else {
+                        alert('Something wrong here');
+                    }
                 })
         }
     };
@@ -61,7 +67,9 @@ export default function GiftUserForm(props) {
                 Card details
                 <CardElement options={CARD_ELEMENT_OPTIONS} />
             </label>
-            <button disabled={!stripe}>Confirm order</button>
+            <button disabled={!stripe}>Gift This User</button>
         </form>
     );
 }
+
+export default withRouter(GiftUserForm)

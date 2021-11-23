@@ -81,7 +81,7 @@ export const User = {
 
 export const Gift = {
     create(params) {
-        return fetch(`${baseUrl}/gift`, {
+        return fetch(`${baseUrl}/gifts`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
