@@ -8,6 +8,14 @@ export default function UseStateHook() {
     // same as this.setState({count:1})
     // the argument inside useState is the default value of this state
 
+    try {
+        // connect with the db
+    } catch (error) {
+        // what you are going to do with 
+    }
+    // finally {
+    //     // finally i will run this code here
+    // }
 
     return (
         <div>
