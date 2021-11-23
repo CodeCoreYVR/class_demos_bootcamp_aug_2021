@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import './css/GiftUserForm.css';
 import { Gift } from '../requests';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
+import Spinner from './Spinner'
 
 const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -26,8 +27,10 @@ const GiftUserForm = (props) => {
     const stripe = useStripe();
     const elements = useElements();
     const [amount, setAmount] = useState(0);
+    const [show, setShow] = useState(false);
 
     const handleSubmit = async (event) => {
+        setShow(true)
         event.preventDefault();
 
         if (!stripe || !elements) {
@@ -45,6 +48,7 @@ const GiftUserForm = (props) => {
 
             Gift.create({ token: result.token.id, amount: amount, answer_id: props.answer_id })
                 .then(data => {
+                    setShow(false)
                     if (data.status === 200) {
                         alert('Success');
                         props.history.push('/')
@@ -56,19 +60,22 @@ const GiftUserForm = (props) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="amount">Amount:</label>
-                <input type="number" name="amount" id="amount" height="40px" value={amount}
-                    onChange={e => setAmount(e.currentTarget.value)}
-                />
-            </div>
-            <label>
-                Card details
-                <CardElement options={CARD_ELEMENT_OPTIONS} />
-            </label>
-            <button disabled={!stripe}>Gift This User</button>
-        </form>
+        <>
+            <Spinner show={show} />
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="amount">Amount:</label>
+                    <input type="number" name="amount" id="amount" height="40px" value={amount}
+                        onChange={e => setAmount(e.currentTarget.value)}
+                    />
+                </div>
+                <label>
+                    Card details
+                    <CardElement options={CARD_ELEMENT_OPTIONS} />
+                </label>
+                <button disabled={!stripe}>Gift This User</button>
+            </form>
+        </>
     );
 }
 
