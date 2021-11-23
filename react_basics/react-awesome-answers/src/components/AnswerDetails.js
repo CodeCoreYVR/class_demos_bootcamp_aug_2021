@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from 'react-router-dom'
 import AuthContext from '../context/auth-context';
 
 const AnswerDetails = (props) => {
@@ -15,6 +16,11 @@ const AnswerDetails = (props) => {
             </p>
             {
                 (ctx.user && ctx.user.is_admin) ? <button onClick={() => props.deleteAnswer(id)}>Delete</button> : null
+            }
+            {
+                ctx.user ?
+                    <Link to={`/gifts/${id}`}>Gift User</Link>
+                    : null
             }
         </div>
     )
